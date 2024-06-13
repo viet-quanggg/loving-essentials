@@ -11,14 +11,14 @@ public class Product {
     private LocalDateTime CreatedDate;
     private LocalDateTime UpdatedDate;
     private String Description;
-    private Uri Image;
+    private String Image;
     private int CategoryId;
     private int BrandId;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price, LocalDateTime createdDate, LocalDateTime updatedDate, String description, Uri image, int categoryId, int brandId) {
+    public Product(int id, String name, double price, LocalDateTime createdDate, LocalDateTime updatedDate, String description, String image, int categoryId, int brandId) {
         Id = id;
         Name = name;
         Price = price;
@@ -78,11 +78,11 @@ public class Product {
         Description = description;
     }
 
-    public Uri getImage() {
+    public String getImage() {
         return Image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         Image = image;
     }
 
