@@ -20,18 +20,19 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.loving_essentials.Domain.Entity.Category;
 import com.example.loving_essentials.Domain.Entity.Product;
+import com.example.loving_essentials.Domain.Entity.ProductDTO;
 import com.example.loving_essentials.R;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private Context context;
-    private List<Product> list;
+    private List<ProductDTO> list;
 
     public ProductAdapter() {
     }
 
-    public ProductAdapter(Context context, List<Product> list) {
+    public ProductAdapter(Context context, List<ProductDTO> list) {
         this.context = context;
         this.list = list;
     }
@@ -45,7 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
         Glide.with(context)
-                .load(list.get(position).getImage())
+                .load(list.get(position).getimageURL())
                 .centerCrop()
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -60,7 +61,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     }
                 })
                 .into(holder.newImg);
-        holder.newName.setText(list.get(position).getName());
+        String name = list.get(position).getName();
+        if(name.length() > 10){
+            name = name.substring(0, 10) + "...";
+        }
+        holder.newName.setText(name);
         holder.newPrice.setText(String.valueOf(list.get(position).getPrice()));
     }
 

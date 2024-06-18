@@ -43,22 +43,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        Glide.with(context)
-                .load(list.get(position).getImgUrl())
-                .centerCrop()
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, com.bumptech.glide.request.target.Target<Drawable> target, boolean isFirstResource) {
-                        Log.e("GLIDE_TAG", "Image Load Error", e);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .into(holder.catImg);
         holder.catName.setText(list.get(position).getName());
     }
 
@@ -69,13 +53,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView catImg;
+//        ImageView catImg;
         TextView catName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            catImg = (ImageView) itemView.findViewById(R.id.cat_img);
+//            catImg = (ImageView) itemView.findViewById(R.id.cat_img);
             catName = (TextView) itemView.findViewById(R.id.cat_name);
         }
     }

@@ -1,39 +1,29 @@
 package com.example.loving_essentials.Domain.Entity;
 
 public class Category {
-    private int Id;
-    private String Name;
-    private String imgUrl;
+    private int id;
+    private String name;
     public Category(){
     }
 
-    public Category(int Id, String Name, String imgUrl){
-        this.Id = Id;
-        this.Name = Name;
-        this.imgUrl = imgUrl;
+    public Category(int Id, String Name){
+        this.id = Id;
+        this.name = Name;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+        this.name = name;
     }
 }
