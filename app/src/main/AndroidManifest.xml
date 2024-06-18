@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lovingessentials"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".UI.MainActivity"
@@ -27,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UI.ProductListActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
