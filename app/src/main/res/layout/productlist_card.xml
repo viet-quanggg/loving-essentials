@@ -1,37 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+    app:cardCornerRadius="5dp"
+    android:elevation="4dp"
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#DCE7A8EF"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        >
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imgProductCard"
+            android:background="@drawable/productcard_imgborder"
+            tools:srcCompat="@tools:sample/avatars"
+            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvProductCardName"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:text="Name"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvProductCardDescription"
+                android:textStyle="bold"
+                android:text="Description"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvProductCardPrice"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="Price"
+                android:textColor="@color/black"
+                />
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/product_image"/>
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/product_name"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/product_description"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/product_price"/>
-
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:layout_marginTop="14dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp"
+                />
         </LinearLayout>
+    </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="4"-->
+<!--        >-->
+<!--        <ImageView-->
+<!--            android:id="@+id/imgProductCard"-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="180dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_weight="1"-->
+<!--            tools:srcCompat="@tools:sample/avatars" />-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:weightSum="5"-->
+<!--            android:layout_weight="2"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgProductCard"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1.5"-->
+<!--                android:text="Ten"-->
+<!--                android:id="@+id/tvProductCardName"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="2"-->
+<!--                android:text="Description"-->
+<!--                android:id="@+id/tvProductCardDescription"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1.5"-->
+<!--                android:text="Price"-->
+<!--                android:id="@+id/tvProductCardPrice"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="View Detail"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+
+</androidx.cardview.widget.CardView>

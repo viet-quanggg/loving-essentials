@@ -86,10 +86,10 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
 
         public ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.product_name);
-            description = (TextView) itemView.findViewById(R.id.product_description);
-            price = (TextView) itemView.findViewById(R.id.product_price);
-            image = (ImageView) itemView.findViewById(R.id.product_image);
+            name = (TextView) itemView.findViewById(R.id.tvProductCardName);
+            description = (TextView) itemView.findViewById(R.id.tvProductCardDescription);
+            price = (TextView) itemView.findViewById(R.id.tvProductCardPrice);
+            image = (ImageView) itemView.findViewById(R.id.imgProductCard);
         }
     }
 }
