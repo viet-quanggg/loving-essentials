@@ -11,6 +11,6 @@ public interface IProductService {
 
     @GET(ENDPOINT)
     Call<ProductDTO[]> getProducts();
-    @GET(ENDPOINT)
+    @GET(ENDPOINT + "/filter")
     Call<ProductDTO[]> getFilteredProducts(@Query("search") String search, @Query("categoryId") int categoryId, @Query("brandId") int brandId);
 }
