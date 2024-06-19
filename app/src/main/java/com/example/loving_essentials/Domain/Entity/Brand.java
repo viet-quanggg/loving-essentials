@@ -1,29 +1,34 @@
 package com.example.loving_essentials.Domain.Entity;
 
 public class Brand {
-    private int Id;
-    private String Name;
+    private int id;
+    private String name;
 
     public Brand() {
     }
     public Brand(int id, String name) {
-        Id = id;
-        Name = name;
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
