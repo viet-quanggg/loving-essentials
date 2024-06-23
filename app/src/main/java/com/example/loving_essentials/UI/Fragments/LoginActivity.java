@@ -1,10 +1,11 @@
 package com.example.loving_essentials.UI.Fragments;
 
+import static com.example.loving_essentials.Domain.Services.Service.AuthService.getAuthService;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,11 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.loving_essentials.Data.API.APIClient;
-import com.example.loving_essentials.Domain.DTO.AuthDTO.LoginRequest;
-import com.example.loving_essentials.Domain.DTO.AuthDTO.LoginResponse;
-import com.example.loving_essentials.Domain.DTO.User;
-import com.example.loving_essentials.Domain.Services.Service.AuthService;
+import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.LoginRequest;
+import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.LoginResponse;
+import com.example.loving_essentials.Domain.Entity.User;
+import com.example.loving_essentials.Domain.Services.IService.IAuthService;
 import com.example.loving_essentials.R;
 import com.google.android.gms.common.SignInButton;
 
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setEmail(email);
         loginRequest.setPassword(password);
 
-        AuthService authService = APIClient.getClient().create(AuthService.class);
+        IAuthService authService = getAuthService();
         Call<LoginResponse> call = authService.loginUser(loginRequest);
 
         call.enqueue(new Callback<LoginResponse>() {

@@ -1,5 +1,7 @@
 package com.example.loving_essentials.UI.Fragments;
 
+import static com.example.loving_essentials.Domain.Services.Service.AuthService.getAuthService;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.loving_essentials.Data.API.APIClient;
-import com.example.loving_essentials.Domain.DTO.AuthDTO.LoginRequest;
-import com.example.loving_essentials.Domain.DTO.AuthDTO.RegisterRequest;
-import com.example.loving_essentials.Domain.DTO.AuthDTO.RegisterResponse;
-import com.example.loving_essentials.Domain.Services.Service.AuthService;
+import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.RegisterRequest;
+import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.RegisterResponse;
+import com.example.loving_essentials.Domain.Services.IService.IAuthService;
 import com.example.loving_essentials.R;
 
 import retrofit2.Call;
@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerRequest.setPassword(password);
         registerRequest.setName(fullName);
 
-        AuthService authService = APIClient.getClient().create(AuthService.class);
+        IAuthService authService = getAuthService();
         Call<RegisterResponse> call = authService.registerUser(registerRequest);
 
         call.enqueue(new Callback<RegisterResponse>() {

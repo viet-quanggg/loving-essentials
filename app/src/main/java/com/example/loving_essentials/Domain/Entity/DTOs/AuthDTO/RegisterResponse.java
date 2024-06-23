@@ -1,4 +1,4 @@
-package com.example.loving_essentials.Domain.DTO.AuthDTO;
+package com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO;
 
 import com.example.loving_essentials.Domain.Entity.User;
 
