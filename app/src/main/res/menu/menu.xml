@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Home Page">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_home"
-                    android:title="Home" />
+                    android:title="Home"
+                    android:icon="@drawable/home" />
                 <item
                     android:id="@+id/nav_products"
-                    android:title="Products" />
+                    android:title="Products"
+                    android:icon="@drawable/product" />
             </group>
         </menu>
     </item>
@@ -17,13 +18,16 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_login"
-                    android:title="Login" />
+                    android:title="Login"
+                    android:icon="@drawable/login" />
                 <item
                     android:id="@+id/nav_profile"
-                    android:title="Profile" />
+                    android:title="Profile"
+                    android:icon="@drawable/user" />
                 <item
                     android:id="@+id/nav_logout"
-                    android:title="Logout" />
+                    android:title="Logout"
+                    android:icon="@drawable/logout" />
             </group>
         </menu>
     </item>
