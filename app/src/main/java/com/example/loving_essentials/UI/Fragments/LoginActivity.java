@@ -18,6 +18,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.LoginResponse;
 import com.example.loving_essentials.Domain.Entity.User;
 import com.example.loving_essentials.Domain.Services.IService.IAuthService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.MainActivity;
 import com.google.android.gms.common.SignInButton;
 
 import retrofit2.Call;
@@ -120,6 +121,13 @@ public class LoginActivity extends AppCompatActivity {
 
         if (role == 1) {
             Toast.makeText(LoginActivity.this, "Login successful with User Role", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("name", name);
+            intent.putExtra("role", role);
+            intent.putExtra("email", email);
+            intent.putExtra("phone", phone);
+            startActivity(intent);
         } else if (role == 2) {
             // Navigate to another page
         } else if (role == 3) {
