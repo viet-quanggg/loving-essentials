@@ -18,9 +18,9 @@ public interface IAuthService {
 //    @POST(ENDPOINT + "/register")
 //    Call<RegisterDTO> register(@Body RegisterDTO registerDTO);
 
-    @POST("api/Auth/Login")
+    @POST("Auth/Login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("api/Auth/Register")
+    @POST("Auth/Register")
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 }
