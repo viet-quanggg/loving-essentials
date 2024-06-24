@@ -31,22 +31,31 @@
             android:name=".UI.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".UI.UserProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".UI.Fragments.RegisterActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".UI.Fragments.LoginActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".UI.FooView.FooList"
             android:exported="true" />
         <activity
             android:name=".UI.Homepage"
-            android:exported="false">
-
-            <!--
+            android:exported="false"></activity>
+        <activity
+            android:name=".UI.Fragments.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".UI.ProductListActivity"

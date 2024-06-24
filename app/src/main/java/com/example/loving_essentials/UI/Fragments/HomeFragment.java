@@ -3,6 +3,9 @@ package com.example.loving_essentials.UI.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -31,6 +37,7 @@ import com.example.loving_essentials.UI.Adapter.CategoryAdapter;
 import com.example.loving_essentials.UI.Adapter.ProductAdapter;
 import com.example.loving_essentials.UI.Adapter.SliderAdapter;
 import com.example.loving_essentials.UI.ProductListActivity;
+import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-
+    private DrawerLayout drawerLayout;
     RecyclerView cateRecyclerView, productRecyclerView;
     CategoryAdapter categoryAdapter;
     ProductAdapter productAdapter;
