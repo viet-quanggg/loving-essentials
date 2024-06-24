@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Handle successful login
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
                 } else {
                     // Handle unsuccessful login
                     Toast.makeText(LoginActivity.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
