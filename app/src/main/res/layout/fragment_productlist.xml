@@ -1,0 +1,82 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:id="@+id/product_list"-->
+<!--    >-->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/edtSearchName"
+            android:layout_marginTop="16dp"
+            android:hint="Enter name"
+            android:layout_alignParentTop="true"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Select category"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/edtSearchName"
+            android:id="@+id/categoryArea"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/selectedCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="Any Category" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Select brand"
+            android:layout_below="@+id/categoryArea"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/brandArea"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/selectedBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="Any Brand" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnFilter"
+            android:text="Filter"
+            android:textColor="@color/white"
+            android:layout_below="@id/brandArea"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:layout_marginBottom="16dp"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_productList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnFilter"
+            />
+    </RelativeLayout>
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
