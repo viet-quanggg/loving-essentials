@@ -1,69 +1,69 @@
 package com.example.loving_essentials.Domain.Entity;
 
 public class User {
-    private int Id;
-    private String Name;
-    private String Email;
-    private String Phone;
-    private int Role;
-    private String Password;
+    private int id;
+    private String name;
+    private String email;
+    private String phoneNumber;
+    private int role;
+    private String address;
 
     public User() {}
 
-    public User(int id, String name, String email, String phone, int role, String password) {
-        Id = id;
-        Name = name;
-        Email = email;
-        Phone = phone;
-        Role = role;
-        Password = password;
+    public User(int id, String name, String email, String phoneNumber, int role, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.address = address;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public String getPhone() {
-        return Phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        Phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(int role) {
-        Role = role;
+        this.role = role;
     }
 
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

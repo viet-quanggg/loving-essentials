@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -22,7 +24,10 @@ import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    TextView emailTextView, usernameTextView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -56,11 +61,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         homeFragment = new HomeFragment();
         loadFragment(homeFragment);
 
+        View headerView = navigationView.getHeaderView(0);
+        emailTextView = headerView.findViewById(R.id.email);
+        usernameTextView = headerView.findViewById(R.id.username);
+
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+        String name = intent.getStringExtra("name");
+
+        // Set the email and username text
+        if (email != null) {
+            emailTextView.setText(email);
+        }
+        if (name != null) {
+            usernameTextView.setText(name);
+        }
     }
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_container, homeFragment);
+        transaction.commit();
+    }
+    private void forAllFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_container, fragment);
         transaction.commit();
     }
 
