@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.UserView.ShippingInformation">
+    tools:context=".UI.UserView.AddressView.ShippingInformation">
 
     <TextView
         android:id="@+id/textView"
@@ -22,12 +22,10 @@
         android:id="@+id/addAddressButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginHorizontal="4dp"
         android:text="Add new address"
-        app:layout_constraintEnd_toStartOf="@+id/updateAddressButton"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -42,29 +40,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addAddressButton" />
-
-    <Button
-        android:id="@+id/updateAddressButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        app:layout_constraintBottom_toBottomOf="@+id/addAddressButton"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAddressButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/addAddressButton"
-        app:layout_constraintTop_toTopOf="@+id/addAddressButton" />
-
-    <Button
-        android:id="@+id/deleteAddressButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="4dp"
-        android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/updateAddressButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/updateAddressButton"
-        app:layout_constraintTop_toTopOf="@+id/updateAddressButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
