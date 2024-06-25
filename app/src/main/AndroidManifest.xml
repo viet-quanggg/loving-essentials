@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Adapter.CartAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".UI.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.CartActivity"
+            android:exported="true" />
+         <activity
             android:name=".UI.UserView.AddressView.AddressDetail"
             android:exported="true" />
          <activity

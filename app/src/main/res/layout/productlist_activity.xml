@@ -76,6 +76,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnFilter"
             />
+
+        <Button
+            android:id="@+id/btnCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="246dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="437dp"
+            android:layout_toEndOf="@+id/btnFilter"
+            android:text="View Cart" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
