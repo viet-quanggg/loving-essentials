@@ -16,14 +16,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Adapter.CartAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".UI.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.CartActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".UI.RegisterActivity"
@@ -37,11 +45,14 @@
         <activity
             android:name=".UI.Homepage"
             android:exported="false">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".UI.ProductListActivity"

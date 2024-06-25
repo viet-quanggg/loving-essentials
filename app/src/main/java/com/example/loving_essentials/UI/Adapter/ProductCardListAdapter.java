@@ -1,11 +1,15 @@
 package com.example.loving_essentials.UI.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,16 +22,26 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.loving_essentials.Domain.Entity.Cart;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
+import com.example.loving_essentials.Domain.Entity.ProductDetail;
+import com.example.loving_essentials.Domain.Services.IService.ICartService;
+import com.example.loving_essentials.Domain.Services.IService.IProductService;
+import com.example.loving_essentials.Domain.Services.Service.CartService;
+import com.example.loving_essentials.Domain.Services.Service.ProductService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.ProductDetailActivity;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardListAdapter.ViewHolder> {
 
     List<ProductDTO> productList;
     Context context;
-
     public ProductCardListAdapter(List<ProductDTO> productList, Context context) {
         this.productList = productList;
         this.context = context;
@@ -71,6 +85,39 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
                     }
                 })
                 .into(holder.image);
+        holder.btnaddtocart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                ProductDTO product = productList.get(position);
+
+                // Call the addProductsToCart API here
+                IProductService productService = ProductService.getProductService();
+                int id = product.getId();
+                Call<ProductDetail> call = productService.getProductbyId(id);
+                call.enqueue(new Callback<ProductDetail>() {
+                    @Override
+                    public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
+                        if (response.isSuccessful()) {
+                            Log.d("ProductCardListAdapter", "API call successful");
+                            ProductDetail productDetail = response.body();
+
+                            Context context = holder.itemView.getContext();
+                            Intent intent = new Intent(context, ProductDetailActivity.class);
+                            intent.putExtra("product", productDetail);
+                            context.startActivity(intent);
+                        } else {
+                            Log.e("ProductCardListAdapter", "API call failed: " + response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProductDetail> call, Throwable t) {
+                        // Handle failure
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -83,13 +130,17 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
         public TextView description;
         public TextView price;
         public ImageView image;
-
+        public ImageButton btnaddtocart;
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tvProductCardName);
             description = (TextView) itemView.findViewById(R.id.tvProductCardDescription);
             price = (TextView) itemView.findViewById(R.id.tvProductCardPrice);
             image = (ImageView) itemView.findViewById(R.id.imgProductCard);
+
+            btnaddtocart = (ImageButton) itemView.findViewById(R.id.btnAddtocart);
+
+
         }
     }
 }
