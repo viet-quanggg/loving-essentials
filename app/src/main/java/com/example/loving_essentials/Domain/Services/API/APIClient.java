@@ -14,7 +14,7 @@ public class APIClient {
 //    private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
 
 
-    private static final String BASE_URL = "https://ea66-1-55-208-239.ngrok-free.app/api/";
+    private static final String BASE_URL = "https://7d38-113-173-72-48.ngrok-free.app/api/";
 
     private static Retrofit retrofit;
     private static OkHttpClient client = new OkHttpClient.Builder()
