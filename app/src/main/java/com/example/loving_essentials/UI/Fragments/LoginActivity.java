@@ -18,6 +18,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.AuthDTO.LoginResponse;
 import com.example.loving_essentials.Domain.Entity.User;
 import com.example.loving_essentials.Domain.Services.IService.IAuthService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.AdminMainActivity;
 import com.example.loving_essentials.UI.MainActivity;
 import com.google.android.gms.common.SignInButton;
 
@@ -134,6 +135,9 @@ public class LoginActivity extends AppCompatActivity {
         } else if (role == 3) {
             // Navigate to another page
             Toast.makeText(LoginActivity.this, "Login successful with Admin Role", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
         } else {
             Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
         }

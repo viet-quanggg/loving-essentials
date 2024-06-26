@@ -14,7 +14,7 @@ public class APIClient {
 //    private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
 
 
-    private static final String BASE_URL = "https://a773-58-187-191-135.ngrok-free.app/api/";
+    private static final String BASE_URL = "https://ea66-1-55-208-239.ngrok-free.app/api/";
 
     private static Retrofit retrofit;
     private static OkHttpClient client = new OkHttpClient.Builder()
@@ -24,7 +24,7 @@ public class APIClient {
             .build();
     public static Retrofit getClient() {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(baseUrl).client(client)
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).client(client)
                     .addConverterFactory(GsonConverterFactory.create()).build();
         }
         return retrofit;
