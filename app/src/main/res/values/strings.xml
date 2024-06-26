@@ -13,4 +13,16 @@
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Role options -->
+    <string-array name="role_array">
+        <item>User</item>
+        <item>Shipper</item>
+        <item>Admin</item>
+    </string-array>
+
+    <!-- Status options -->
+    <string-array name="status_array">
+        <item>Inactive</item>
+        <item>Active</item>
+    </string-array>
 </resources>

@@ -19,11 +19,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
     private List<UserDTO> users;
     private OnClickListener onClickListener;
+    private OnLongClickListener onLongClickListener;
 
-    public UserAdapter(Context context, List<UserDTO> users, OnClickListener onClickListener) {
+    public UserAdapter(Context context, List<UserDTO> users, OnClickListener onClickListener, OnLongClickListener onLongClickListener) {
         this.context = context;
         this.users = users;
         this.onClickListener = onClickListener;
+        this.onLongClickListener = onLongClickListener;
     }
 
     @NonNull
@@ -48,16 +50,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 onClickListener.onClick(position, user);
             }
         });
-    }
 
-    // Setter for the click listener
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-
-    // Interface for the click listener
-    public interface OnClickListener {
-        void onClick(int position, UserDTO model);
+        holder.itemView.setOnLongClickListener(view -> {
+            if (onLongClickListener != null) {
+                onLongClickListener.onLongClick(position);
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -84,6 +84,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
+    // Interfaces for click and long-click listeners
+    public interface OnClickListener {
+        void onClick(int position, UserDTO user);
+    }
+
+    public interface OnLongClickListener {
+        void onLongClick(int position);
+    }
+
+    // ViewHolder class
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView id, username, email, phone, role, status;
 
@@ -101,7 +111,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     onClickListener.onClick(getAdapterPosition(), users.get(getAdapterPosition()));
                 }
             });
+
+            itemView.setOnLongClickListener(view -> {
+                if (onLongClickListener != null) {
+                    onLongClickListener.onLongClick(getAdapterPosition());
+                    return true;
+                }
+                return false;
+            });
         }
     }
 }
+
 

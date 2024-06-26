@@ -5,6 +5,7 @@ public class UserDTO {
     private String name;
     private String email;
     private String phoneNumber;
+    private String password;
     private int role;
     private Byte status;
 
@@ -54,5 +55,13 @@ public class UserDTO {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
