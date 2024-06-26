@@ -53,14 +53,13 @@
                 android:text="Price"
                 android:textColor="@color/black"
                 />
-            <ImageView
+
+            <ImageButton
+                android:id="@+id/btnAddtocart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                android:layout_marginTop="14dp"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp"
-                />
+                android:layout_gravity="right"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
         </LinearLayout>
     </LinearLayout>
 
