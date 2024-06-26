@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_login) {
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
-
             menu.findItem(R.id.nav_login).setVisible(false);
         } else if (id == R.id.nav_logout) {
             menu.findItem(R.id.nav_logout).setVisible(false);

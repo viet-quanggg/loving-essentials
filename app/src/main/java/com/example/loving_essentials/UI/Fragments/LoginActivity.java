@@ -130,8 +130,12 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (role == 2) {
             // Navigate to another page
+            Toast.makeText(LoginActivity.this, "Login successful with Shipper Role", Toast.LENGTH_SHORT).show();
         } else if (role == 3) {
             // Navigate to another page
+            Toast.makeText(LoginActivity.this, "Login successful with Admin Role", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
         }
     }
 }
