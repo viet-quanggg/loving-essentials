@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loving_essentials.Domain.Entity.Brand;
 import com.example.loving_essentials.Domain.Entity.Category;
-import com.example.loving_essentials.Domain.Entity.Product;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
 import com.example.loving_essentials.Domain.Services.IService.IBrandService;
 import com.example.loving_essentials.Domain.Services.IService.ICategoryService;
@@ -29,9 +28,8 @@ import com.example.loving_essentials.Domain.Services.Service.BrandService;
 import com.example.loving_essentials.Domain.Services.Service.CategoryService;
 import com.example.loving_essentials.Domain.Services.Service.ProductService;
 import com.example.loving_essentials.R;
-import com.example.loving_essentials.UI.Adapter.ProductAdapter;
 import com.example.loving_essentials.UI.Adapter.ProductCardListAdapter;
-import com.example.loving_essentials.UI.Fragments.HomeFragment;
+import com.example.loving_essentials.UI.Fragments.CartFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -193,16 +191,5 @@ public class ProductListActivity extends AppCompatActivity {
                 });
             }
         });
-
-        btnCart = findViewById(R.id.btnCart);
-
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductListActivity.this, CartActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }

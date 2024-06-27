@@ -16,7 +16,8 @@ public interface ICartService {
 
     @GET(END_POINT + "/{cartId}")
     Call<Cart> getCartById(@Path("cartId") int cartId);
-
+    @GET(END_POINT + "/check/{userId}")
+    Call<Cart[]> getUserCart(@Path("userId") int userId);
     @POST(END_POINT + "/{buyerId}/{productId}/{quantity}")
     Call<Cart> addProductsToCart(@Path("buyerId") int buyerId, @Path("productId") int productId, @Path("quantity") int quantity);
 
