@@ -16,4 +16,9 @@
 
     <!--colros for card-->
     <color name="whiteCardColor">#fff</color>
+
+    <color name="primary_blue">#3B5998</color> <!-- Blue -->
+    <color name="secondary_purple">#8A2BE2</color> <!-- Purple -->
+    <color name="dark_gray">#333333</color> <!-- Dark Gray for text -->
+    <color name="light_gray">#EEEEEE</color> <!-- Light Gray for background -->
 </resources>

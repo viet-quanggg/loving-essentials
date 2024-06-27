@@ -27,6 +27,7 @@ import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
+import com.example.loving_essentials.UI.UserView.AddressView.ShippingInformation;
 import com.google.android.material.navigation.NavigationView;
 
 import retrofit2.Call;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolbar;
     Menu menu;
-    Fragment homeFragment, userProfileFragment;
+    Fragment homeFragment, userProfileFragment, myAddressFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(false);
+            menu.findItem(R.id.nav_address).setVisible(true);
         } else if (id == R.id.nav_logout) {
             menu.findItem(R.id.nav_logout).setVisible(false);
             menu.findItem(R.id.nav_profile).setVisible(false);
@@ -122,6 +124,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             userProfileFragment = new UserProfileFragment();
             userProfileFragment.setArguments(args);
             loadFragment(userProfileFragment);
+        }else if(id == R.id.nav_address){
+            myAddressFragment = new ShippingInformation();
+            Intent intent = getIntent();
+            int userId = intent.getIntExtra("id", 0);
+
+            Bundle args = new Bundle();
+            args.putInt("userId", userId);
+            myAddressFragment.setArguments(args);
+            loadFragment(myAddressFragment);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
