@@ -1,6 +1,7 @@
 package com.example.loving_essentials.UI.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private OnQuantityChangedListener onQuantityChangedListener;
 
     public interface OnQuantityChangedListener {
-        void onQuantityChanged();
+        void onQuantityChanged(int id);
     }
     public CartAdapter(Map<ProductDTO, Integer> productQuantities, Context context, OnQuantityChangedListener onQuantityChangedListener) {
         this.productQuantities = productQuantities;
@@ -125,7 +126,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     public void onResponse(Call<Cart> call, Response<Cart> response) {
                         if (response.isSuccessful()) {
                             // Update UI or handle success scenario
-                            onQuantityChangedListener.onQuantityChanged();
+                            SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                            if (sharedPreferences.contains("id")) {
+                                int id = sharedPreferences.getInt("id", -1);
+                                // use the id value
+                                onQuantityChangedListener.onQuantityChanged(id);
+                            } else {
+                                // the id key is not present in the SharedPreferences
+                            }
+
                         } else {
                             Log.e("CartAdapter", "Failed to update quantity: " + response.message());
                             Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
@@ -147,7 +156,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful()) {
                     // Update UI or handle success scenario
-                    onQuantityChangedListener.onQuantityChanged();
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                    if (sharedPreferences.contains("id")) {
+                        int id = sharedPreferences.getInt("id", -1);
+                        // use the id value
+                        onQuantityChangedListener.onQuantityChanged(id);
+                    } else {
+                        // the id key is not present in the SharedPreferences
+                    }
+
+
                 } else {
                     Log.e("CartAdapter", "Failed to update quantity: " + response.message());
                     Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();

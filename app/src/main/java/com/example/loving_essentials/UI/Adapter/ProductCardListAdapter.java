@@ -8,13 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,15 +24,12 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.example.loving_essentials.Domain.Entity.Cart;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
 import com.example.loving_essentials.Domain.Entity.ProductDetail;
-import com.example.loving_essentials.Domain.Services.IService.ICartService;
 import com.example.loving_essentials.Domain.Services.IService.IProductService;
-import com.example.loving_essentials.Domain.Services.Service.CartService;
 import com.example.loving_essentials.Domain.Services.Service.ProductService;
 import com.example.loving_essentials.R;
-import com.example.loving_essentials.UI.ProductDetailActivity;
+import com.example.loving_essentials.UI.Fragments.ProductDetailFragment;
 
 import java.util.List;
 
@@ -91,31 +90,18 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
                 int position = holder.getAdapterPosition();
                 ProductDTO product = productList.get(position);
 
-                // Call the addProductsToCart API here
-                IProductService productService = ProductService.getProductService();
-                int id = product.getId();
-                Call<ProductDetail> call = productService.getProductbyId(id);
-                call.enqueue(new Callback<ProductDetail>() {
-                    @Override
-                    public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
-                        if (response.isSuccessful()) {
-                            Log.d("ProductCardListAdapter", "API call successful");
-                            ProductDetail productDetail = response.body();
 
-                            Context context = holder.itemView.getContext();
-                            Intent intent = new Intent(context, ProductDetailActivity.class);
-                            intent.putExtra("product", productDetail);
-                            context.startActivity(intent);
-                        } else {
-                            Log.e("ProductCardListAdapter", "API call failed: " + response.message());
-                        }
-                    }
+                FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    @Override
-                    public void onFailure(Call<ProductDetail> call, Throwable t) {
-                        // Handle failure
-                    }
-                });
+                ProductDetailFragment productDetailFragment = new ProductDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("productId", product.getId());
+                productDetailFragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.home_container, productDetailFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
     }
@@ -143,4 +129,5 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
 
         }
     }
+
 }

@@ -25,10 +25,10 @@
             android:name=".UI.Adapter.CartAdapter"
             android:exported="false" />
         <activity
-            android:name=".UI.ProductDetailActivity"
+            android:name=".UI.Fragments.ProductDetailFragment"
             android:exported="false" />
         <activity
-            android:name=".UI.CartActivity"
+            android:name=".UI.Fragments.CartFragment"
             android:exported="true" />
         <activity
             android:name=".UI.UserView.AddressView.AddressDetail"
