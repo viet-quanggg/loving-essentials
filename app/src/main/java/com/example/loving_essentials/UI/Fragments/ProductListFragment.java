@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -138,7 +139,7 @@ public class ProductListFragment extends Fragment {
         });
 
         RecyclerView recyclerView = root.findViewById(R.id.rv_productList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         products = new ArrayList<>();
         adapter = new ProductCardListAdapter(products, getContext());
