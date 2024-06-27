@@ -9,11 +9,12 @@ public class ProductDTO {
     private int quantity;
     private String categoryName;
     private String brandName;
+    private byte status;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, String name, String description, double price, String imageURL, int quantity, String categoryName, String brandName) {
+    public ProductDTO(int id, String name, String description, double price, String imageURL, int quantity, String categoryName, String brandName, byte status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,9 +23,10 @@ public class ProductDTO {
         this.quantity = quantity;
         this.categoryName = categoryName;
         this.brandName = brandName;
+        this.status = status;
     }
 
-    public ProductDTO(String name, String description, double price, String imageURL, int quantity, String categoryName, String brandName) {
+    public ProductDTO(String name, String description, double price, String imageURL, int quantity, String categoryName, String brandName, byte status) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -32,6 +34,7 @@ public class ProductDTO {
         this.quantity = quantity;
         this.categoryName = categoryName;
         this.brandName = brandName;
+        this.status = status;
     }
 
     public int getId() {
@@ -96,5 +99,13 @@ public class ProductDTO {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
     }
 }
