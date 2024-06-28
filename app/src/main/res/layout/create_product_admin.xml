@@ -162,17 +162,43 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"/>
         <TextView
+            android:id="@+id/tvSelectImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Image below:"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+        <ImageView
+            android:id="@+id/ivProductPreview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="15dp"
+            />
+
+        <Button
+            android:id="@+id/btnUploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Image"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <TextView
             android:id="@+id/tvCreateProductImageUrl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image:"
+            android:text="Image Url:"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"/>
         <EditText
             android:id="@+id/edtCreateProductImageUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter url"
+            android:enabled="false"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"/>
