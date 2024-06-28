@@ -1,8 +1,19 @@
 package com.example.loving_essentials.UI.Fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -15,12 +26,17 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.loving_essentials.Domain.Entity.Brand;
 import com.example.loving_essentials.Domain.Entity.Category;
 import com.example.loving_essentials.Domain.Entity.DTOs.Admin.ProductManagement.CreateProduct;
@@ -37,7 +53,9 @@ import com.example.loving_essentials.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +75,13 @@ public class ProductManagementFragment extends Fragment {
     int selectedUpdateBrand = 0;
     private TableLayout tableLayout;
     Button btnStartCreate;
+    Uri imagePath;
+    Map config = new HashMap();
+    ImageView imgCreatePreview;
+    ImageView imgUpdatePreview;
+    private static final String TAG = "Upload ###";
+
+    private static int IMAGE_REQ=1;
 
     public ProductManagementFragment() {
     }
@@ -81,6 +106,7 @@ public class ProductManagementFragment extends Fragment {
                 showCreateProductDialog();
             }
         });
+        initCongif();
         return root;
     }
     private void fetchProducts() {
@@ -190,6 +216,57 @@ public class ProductManagementFragment extends Fragment {
         AutoCompleteTextView selectedBrand = (AutoCompleteTextView) dialogView.findViewById(R.id.selectedBrand);
         Spinner spinnerStatus = dialogView.findViewById(R.id.spinnerUpdateProductStatus);
         Button btnUpdate = dialogView.findViewById(R.id.btnUpdateProduct);
+        Button btnUploadImage = dialogView.findViewById(R.id.btnUploadImage);
+        imgUpdatePreview = dialogView.findViewById(R.id.ivProductPreview);
+
+        imgUpdatePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectUpdateImage();
+            }
+        });
+
+        btnUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imagePath == null) {
+                    Toast.makeText(getContext(), "Please choose an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MediaManager.get().upload(imagePath).callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Log.d(TAG, "onStart: "+"started");
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+                        Log.d(TAG, "onStart: "+"uploading");
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        Log.d(TAG, "onStart: "+"success");
+                        if (resultData.get("url") != null) {
+                            String url = resultData.get("url").toString();
+                            edtImageUrl.setText(url);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        Log.d(TAG, "onStart: "+error);
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                        Log.d(TAG, "onStart: "+error);
+                    }
+                }).dispatch();
+
+            }
+        });
 
         categories = new ArrayList<>();
         categoryAdapter = new ArrayAdapter(getContext(), R.layout.dropdown_item, categories);
@@ -260,6 +337,9 @@ public class ProductManagementFragment extends Fragment {
         edtQuantity.setText(String.valueOf(productDTO.getQuantity()));
         spinnerStatus.setSelection(productDTO.getStatus());
 
+        Glide.with(this).load(productDTO.getimageURL())
+                .into(imgUpdatePreview);
+
         AlertDialog dialog = builder.create();
 
         btnUpdate.setOnClickListener(v -> {
@@ -298,6 +378,57 @@ public class ProductManagementFragment extends Fragment {
         AutoCompleteTextView selectedBrand = (AutoCompleteTextView) dialogView.findViewById(R.id.selectedBrand);
         Spinner spinnerStatus = dialogView.findViewById(R.id.spinnerCreateProductStatus);
         Button btnCreate = dialogView.findViewById(R.id.btnCreateProduct);
+        Button btnUploadImage = dialogView.findViewById(R.id.btnUploadImage);
+        imgCreatePreview = dialogView.findViewById(R.id.ivProductPreview);
+
+        imgCreatePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
+        btnUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imagePath == null) {
+                    Toast.makeText(getContext(), "Please choose an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MediaManager.get().upload(imagePath).callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Log.d(TAG, "onStart: "+"started");
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+                        Log.d(TAG, "onStart: "+"uploading");
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        Log.d(TAG, "onStart: "+"success");
+                        if (resultData.get("url") != null) {
+                            String url = resultData.get("url").toString();
+                            edtImageUrl.setText(url);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        Log.d(TAG, "onStart: "+error);
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                        Log.d(TAG, "onStart: "+error);
+                    }
+                }).dispatch();
+
+            }
+        });
 
         categories = new ArrayList<>();
         categoryAdapter = new ArrayAdapter(getContext(), R.layout.dropdown_item, categories);
@@ -414,6 +545,50 @@ public class ProductManagementFragment extends Fragment {
             }
         });
     }
+    private void selectImage() {
+        Log.d("Inside select image", "Inside select image");
+        Intent intent=new Intent();
+        intent.setType("image/*");// if you want to you can use pdf/gif/video
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        someActivityResultLauncher.launch(intent);
+
+    }
+    private void selectUpdateImage() {
+        Log.d("Inside select image", "Inside select image");
+        Intent intent=new Intent();
+        intent.setType("image/*");// if you want to you can use pdf/gif/video
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        updateActivityResultLauncher.launch(intent);
+
+    }
+    ActivityResultLauncher<Intent> updateActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        imagePath=data.getData();
+                        imgUpdatePreview.setImageURI(imagePath);
+
+                    }
+                }
+            });
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        imagePath=data.getData();
+                        imgCreatePreview.setImageURI(imagePath);
+
+                    }
+                }
+            });
     private String truncateString(String str) {
         String[] words = str.split("\\s+");
         if (words.length > 3) {
@@ -421,5 +596,11 @@ public class ProductManagementFragment extends Fragment {
         } else {
             return str;
         }
+    }
+    private void initCongif() {
+        config.put("cloud_name", "dpmjibfhc");
+        config.put("api_key","432497326611892");
+        config.put("api_secret","dkTA4AvWQtblmhcUECE0eo9V090");
+        MediaManager.init(getContext(), config);
     }
 }
