@@ -2,6 +2,7 @@ package com.example.loving_essentials.UI.Adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +26,7 @@ import com.example.loving_essentials.Domain.Entity.Category;
 import com.example.loving_essentials.Domain.Entity.Product;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.Fragments.ProductDetailFragment;
 
 import java.util.List;
 
@@ -67,6 +72,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
         holder.newName.setText(name);
         holder.newPrice.setText(String.valueOf(list.get(position).getPrice()));
+
+        holder.newName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                ProductDTO product = list.get(position);
+
+
+                FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                ProductDetailFragment productDetailFragment = new ProductDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("productId", product.getId());
+                productDetailFragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.home_container, productDetailFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override

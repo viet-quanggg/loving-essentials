@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -25,10 +26,10 @@
             android:name=".UI.Adapter.CartAdapter"
             android:exported="false" />
         <activity
-            android:name=".UI.ProductDetailActivity"
+            android:name=".UI.Fragments.ProductDetailFragment"
             android:exported="false" />
         <activity
-            android:name=".UI.CartActivity"
+            android:name=".UI.Fragments.CartFragment"
             android:exported="true" />
         <activity
             android:name=".UI.UserView.AddressView.AddressDetail"
@@ -85,6 +86,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="cloudinary://432497326611892:dkTA4AvWQtblmhcUECE0eo9V090@dpmjibfhc"/>
     </application>
 
 </manifest>

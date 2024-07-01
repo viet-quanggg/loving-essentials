@@ -25,6 +25,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.UserDTO.UserProfileDTO;
 import com.example.loving_essentials.Domain.Services.IService.IUserService;
 import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.Fragments.ProductManagementFragment;
 import com.example.loving_essentials.UI.Fragments.UserManagementFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -39,7 +40,7 @@ public class AdminMainActivity extends AppCompatActivity implements NavigationVi
     NavigationView navigationView;
     Toolbar toolbar;
     Menu menu;
-    Fragment userManagementFragment;
+    Fragment userManagementFragment, productManagementFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +99,8 @@ public class AdminMainActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.nav_home) {
             /*loadFragment(homeFragment);*/
         } else if (id == R.id.nav_products) {
-            Intent intent = new Intent(AdminMainActivity.this, ProductListActivity.class);
-            startActivity(intent);
+            productManagementFragment = new ProductManagementFragment();
+            loadFragment(productManagementFragment);
         } else if(id == R.id.nav_users){
             userManagementFragment = new UserManagementFragment();
             loadFragment(userManagementFragment);

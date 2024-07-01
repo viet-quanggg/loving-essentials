@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.UserDTO.UserProfileDTO;
 import com.example.loving_essentials.Domain.Services.IService.IUserService;
 import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.Fragments.CartFragment;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.example.loving_essentials.UI.UserView.AddressView.ShippingInformation;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     Menu menu;
     Fragment homeFragment, userProfileFragment, myAddressFragment;
+    ImageView addcart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        addcart = findViewById(R.id.addCartmain);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -79,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         homeFragment = new HomeFragment();
         loadFragment(homeFragment);
+
+        addcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CartFragment());
+            }
+        });
     }
 
     private void loadFragment(Fragment fragment) {
