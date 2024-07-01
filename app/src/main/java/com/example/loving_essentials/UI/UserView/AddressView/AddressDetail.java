@@ -76,12 +76,12 @@ public class AddressDetail extends AppCompatActivity {
         edtDistrict.setText(addressResponseDto.getDistrict());
         edtCity.setText(addressResponseDto.getCity());
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+/*        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +111,7 @@ public class AddressDetail extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateAddressDto.setId(addressResponseDto.getId());
                 updateAddressDto.setHouseNumber(edtHouseNumber.getText().toString());
                 updateAddressDto.setStreet(edtStreet.getText().toString());
                 updateAddressDto.setWard(edtWard.getText().toString());
