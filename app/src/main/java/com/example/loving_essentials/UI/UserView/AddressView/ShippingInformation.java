@@ -23,6 +23,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.Response.Address.Address
 import com.example.loving_essentials.Domain.Services.IService.IAddressService;
 import com.example.loving_essentials.Domain.Services.Service.AddressService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.Fragments.AddAddress;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.example.loving_essentials.Utility.FooUtility.ShippingAdapter;
 
@@ -40,7 +41,9 @@ public class ShippingInformation extends Fragment {
     private ListView lvAddress;
     int userId;
     private static final int REQUEST_LOCATION_PICKER = 1;
-    private Button btnAddAddress;
+    private Button btnAddAddress, getBtnAddAddressPicker;
+    private Fragment addAddressFragment;
+
 
     public ShippingInformation() {
         // Required empty public constructor
@@ -51,6 +54,7 @@ public class ShippingInformation extends Fragment {
         View root = inflater.inflate(R.layout.activity_shipping_information, container, false);
 
         btnAddAddress = root.findViewById(R.id.addAddressButton);
+        getBtnAddAddressPicker = root.findViewById(R.id.addAddressPicker);
         lvAddress = root.findViewById(R.id.addressLV);
         addressResponseDtos = new ArrayList<>();
         iAddressService = AddressService.geAddressService();
@@ -81,6 +85,18 @@ public class ShippingInformation extends Fragment {
                     MapFragment mapFragment = new MapFragment();
                     mapFragment.setArguments(args);
                     loadFragment(mapFragment);
+                }
+            });
+
+            getBtnAddAddressPicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle args = new Bundle();
+                    args.putInt("userId", userId);
+
+                    addAddressFragment = new AddAddress();
+                    addAddressFragment.setArguments(args);
+                    loadFragment(addAddressFragment);
                 }
             });
         }

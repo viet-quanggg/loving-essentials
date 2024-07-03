@@ -1,6 +1,6 @@
 package com.example.loving_essentials.Domain.Entity.DTOs.Request.Address;
 
-public class AddressRequestDTO {
+public class AddAddressRequestDto {
     private String houseNumber;
     private String street;
     private String ward;
@@ -8,10 +8,10 @@ public class AddressRequestDTO {
     private String city;
     private UserAddress userAddress;
 
-    public AddressRequestDTO() {
+    public AddAddressRequestDto() {
     }
 
-    public AddressRequestDTO(String houseNumber, String street, String ward, String district, String city, UserAddress userAddress) {
+    public AddAddressRequestDto(String houseNumber, String street, String ward, String district, String city, UserAddress userAddress) {
         this.houseNumber = houseNumber;
         this.street = street;
         this.ward = ward;
@@ -20,18 +20,12 @@ public class AddressRequestDTO {
         this.userAddress = userAddress;
     }
 
-    public static class UserAddress {
-        private int id;
-        private String name;
-        private String phoneNumber;
+    public UserAddress getUserAddress() {
+        return userAddress;
+    }
 
-        public UserAddress(int id, String name, String phoneNumber) {
-            this.id = id;
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-        }
-
-
+    public void setUserAddress(UserAddress userAddress) {
+        this.userAddress = userAddress;
     }
 
     public String getHouseNumber() {
@@ -74,11 +68,15 @@ public class AddressRequestDTO {
         this.city = city;
     }
 
-    public UserAddress getUserAddress() {
-        return userAddress;
-    }
+    public static class UserAddress{
+        private int id;
+        private String name;
+        private String phoneNumber;
 
-    public void setUserAddress(UserAddress userAddress) {
-        this.userAddress = userAddress;
+        public UserAddress(int id, String name, String phoneNumber) {
+            this.id = id;
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+        }
     }
 }
