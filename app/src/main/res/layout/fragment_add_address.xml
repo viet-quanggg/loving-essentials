@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Fragments.AddAddress">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter New Address"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#660099"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <!-- House Number Label and Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="House Number"
+                android:textSize="16sp"
+                android:textColor="#660099"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/houseNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter House Number"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColorHint="#660099"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Street Label and Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Street"
+                android:textSize="16sp"
+                android:textColor="#3366FF"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Street"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColorHint="#3366FF"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Ward Label and Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ward"
+                android:textSize="16sp"
+                android:textColor="#660099"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/ward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Ward"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColorHint="#660099"
+                android:layout_marginBottom="16dp" />
+
+            <!-- District Label and Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="District"
+                android:textSize="16sp"
+                android:textColor="#3366FF"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter District"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColorHint="#3366FF"
+                android:layout_marginBottom="16dp" />
+
+            <!-- City Label and Input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:textSize="16sp"
+                android:textColor="#660099"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter City"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColorHint="#660099"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:backgroundTint="#660099"
+                android:textColor="#FFFFFF"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>
