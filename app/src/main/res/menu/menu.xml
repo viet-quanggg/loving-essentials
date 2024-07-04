@@ -10,6 +10,10 @@
                     android:id="@+id/nav_products"
                     android:title="Products"
                     android:icon="@drawable/product" />
+                <item
+                    android:id="@+id/nav_address"
+                    android:title="My Addresses"
+                    android:icon="@drawable/product" />
             </group>
         </menu>
     </item>

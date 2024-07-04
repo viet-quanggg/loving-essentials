@@ -13,9 +13,10 @@ public class APIClient {
 
 //    private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
 
+    private static final String BASE_URL = "https://8a19-116-108-249-189.ngrok-free.app/api/";
+    private static final String NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/";
 
-    private static final String BASE_URL = "https://62ed-112-197-242-70.ngrok-free.app/api/";
-
+    private static Retrofit retrofitNominatim;
     private static Retrofit retrofit;
     private static OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS) // 30 seconds
@@ -30,4 +31,13 @@ public class APIClient {
         return retrofit;
     }
 
+    public static Retrofit getNominatimClient() {
+        if (retrofitNominatim == null) {
+            retrofitNominatim = new Retrofit.Builder()
+                    .baseUrl(NOMINATIM_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofitNominatim;
+    }
 }

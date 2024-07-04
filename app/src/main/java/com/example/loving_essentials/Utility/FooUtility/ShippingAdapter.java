@@ -55,17 +55,22 @@ public class ShippingAdapter extends BaseAdapter {
 
         AddressResponseDto addressResponseDto = addressResponseDtos.get(position);
 
-       txtUsername.setText(addressResponseDto.getUserInfo().getName());
-       txtPhoneNumber.setText(addressResponseDto.getUserInfo().getPhoneNumber());
-       txtAddress.setText(addressResponseDto.getHouseNumber() + " "
-               + addressResponseDto.getStreet()
-               + ", Ward "
-               + addressResponseDto.getWard()
-               + ", District "
-               + addressResponseDto.getDistrict()
-               + ", "
-               + addressResponseDto.getCity());
-       txtEmail.setText(addressResponseDto.getUserInfo().getEmail());
+        txtUsername.setText(addressResponseDto.getUserInfo().getName());
+        txtPhoneNumber.setText(addressResponseDto.getUserInfo().getPhoneNumber());
+
+        StringBuilder addressBuilder = new StringBuilder();
+        addressBuilder.append(addressResponseDto.getHouseNumber()).append(" ")
+                .append(addressResponseDto.getStreet()).append(", ")
+                .append(addressResponseDto.getWard());
+
+        if (addressResponseDto.getDistrict() != null && !addressResponseDto.getDistrict().isEmpty()) {
+            addressBuilder.append(", ").append(addressResponseDto.getDistrict());
+        }
+
+        addressBuilder.append(", ").append(addressResponseDto.getCity());
+
+        txtAddress.setText(addressBuilder.toString());
+        txtEmail.setText(addressResponseDto.getUserInfo().getEmail());
 
         return convertView;
     }

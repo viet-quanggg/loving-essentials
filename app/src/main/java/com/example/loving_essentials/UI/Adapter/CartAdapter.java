@@ -89,6 +89,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.txtQuantity.setText(String.valueOf(quantity));
 
         holder.btnIncreaseQuantity.setOnClickListener(v -> {
+            if (product.getQuantity() < quantity){
+                Toast.makeText(context,"Max quantity of product",Toast.LENGTH_SHORT).show();
+                return;
+            }
            updateQuantity(product.getId(),1,holder);
 
         });

@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import androidx.fragment.app.Fragment;
 import com.example.loving_essentials.Domain.Entity.DTOs.Request.Address.UpdateAddressDto;
 import com.example.loving_essentials.Domain.Entity.DTOs.Response.Address.AddressResponseDto;
 import com.example.loving_essentials.Domain.Services.IService.IAddressService;
@@ -34,6 +34,7 @@ public class AddressDetail extends AppCompatActivity {
     private EditText edtName, edtPhone, edtHouseNumber, edtStreet, edtWard, edtDistrict, edtCity;
     private AddressResponseDto addressResponseDto;
     private UpdateAddressDto updateAddressDto;
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
@@ -76,12 +77,12 @@ public class AddressDetail extends AppCompatActivity {
         edtDistrict.setText(addressResponseDto.getDistrict());
         edtCity.setText(addressResponseDto.getCity());
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+/*        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +112,7 @@ public class AddressDetail extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateAddressDto.setId(addressResponseDto.getId());
                 updateAddressDto.setHouseNumber(edtHouseNumber.getText().toString());
                 updateAddressDto.setStreet(edtStreet.getText().toString());
                 updateAddressDto.setWard(edtWard.getText().toString());
@@ -123,8 +125,8 @@ public class AddressDetail extends AppCompatActivity {
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(AddressDetail.this, "Save successful", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(AddressDetail.this,ShippingInformation.class);
-                            startActivity(intent);
+                            Intent intent1 = new Intent(AddressDetail.this, ShippingInformation.class);
+                            startActivity(intent1);
                         } else {
                             Toast.makeText(AddressDetail.this, "Save failed: " + response.message(), Toast.LENGTH_LONG).show();
                         }
