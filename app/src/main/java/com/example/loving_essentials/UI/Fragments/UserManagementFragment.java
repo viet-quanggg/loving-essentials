@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,18 +121,20 @@ public class UserManagementFragment extends Fragment {
             int role = spinnerRole.getSelectedItemPosition() + 1;
             byte status = (byte) spinnerStatus.getSelectedItemPosition();
 
-            UserDTO newUser = new UserDTO();
-            newUser.setId(0); // Assuming 0 means a new user
-            newUser.setName(name);
-            newUser.setEmail(email);
-            newUser.setPhoneNumber(phoneNumber);
-            newUser.setPassword(password);
-            newUser.setRole(role);
-            newUser.setStatus(status);
+            if (validateUserInput(name, email, phoneNumber, password, false)) {
+                UserDTO newUser = new UserDTO();
+                newUser.setId(0); // Assuming 0 means a new user
+                newUser.setName(name);
+                newUser.setEmail(email);
+                newUser.setPhoneNumber(phoneNumber);
+                newUser.setPassword(password);
+                newUser.setRole(role);
+                newUser.setStatus(status);
 
-            addUser(newUser);
+                addUser(newUser);
 
-            dialog.dismiss();
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
@@ -176,16 +179,18 @@ public class UserManagementFragment extends Fragment {
             int role = spinnerRole.getSelectedItemPosition() + 1;
             byte status = (byte) spinnerStatus.getSelectedItemPosition();
 
-            user.setName(name);
-            user.setEmail(email);
-            user.setPhoneNumber(phoneNumber);
-            user.setPassword(password);
-            user.setRole(role);
-            user.setStatus(status);
+            if (validateUserInput(name, email, phoneNumber, password, true)) {
+                user.setName(name);
+                user.setEmail(email);
+                user.setPhoneNumber(phoneNumber);
+                user.setPassword(password);
+                user.setRole(role);
+                user.setStatus(status);
 
-            updateUser(user);
+                updateUser(user);
 
-            dialog.dismiss();
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
@@ -260,6 +265,30 @@ public class UserManagementFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to delete user", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private boolean validateUserInput(String name, String email, String phoneNumber, String password, boolean isUpdate) {
+        if (name.isEmpty() || name.length() < 4) {
+            Toast.makeText(getContext(), "Username is required and must be at least 4 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(getContext(), "Valid email is required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (phoneNumber.isEmpty() || !phoneNumber.matches("\\d{10}")) {
+            Toast.makeText(getContext(), "Phone number must be exactly 10 digits", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!isUpdate) {
+            String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$";
+            if (password.isEmpty() || !password.matches(passwordPattern)) {
+                Toast.makeText(getContext(), "Password must contain at least one special character, one number, one uppercase character, and one lowercase character, and be at least 6 characters long", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 }
 
