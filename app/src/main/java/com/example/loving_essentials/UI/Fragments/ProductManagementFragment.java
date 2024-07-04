@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
+import com.cloudinary.utils.StringUtils;
 import com.example.loving_essentials.Domain.Entity.Brand;
 import com.example.loving_essentials.Domain.Entity.Category;
 import com.example.loving_essentials.Domain.Entity.DTOs.Admin.ProductManagement.CreateProduct;
@@ -343,21 +345,35 @@ public class ProductManagementFragment extends Fragment {
         AlertDialog dialog = builder.create();
 
         btnUpdate.setOnClickListener(v -> {
-            int id = productDTO.getId();
-            String name = edtUpdateProductName.getText().toString();
-            String description = edtUpdateProductDescription.getText().toString();
-            String imageURL = edtImageUrl.getText().toString();
-            double price = Double.parseDouble(edtPrice.getText().toString());
-            int quantity = Integer.parseInt(edtQuantity.getText().toString());
-            int categoryId = selectedUpdateCategory;
-            int brandId = selectedUpdateBrand;
-            byte status = (byte) spinnerStatus.getSelectedItemPosition();
+            if (TextUtils.isEmpty(edtUpdateProductName.getText().toString())) {
+                edtUpdateProductName.setError("Required");
+            } else if (TextUtils.isEmpty(edtUpdateProductDescription.getText().toString())) {
+                edtUpdateProductDescription.setError("Required");
+            } else if (TextUtils.isEmpty(edtImageUrl.getText().toString())) {
+                edtImageUrl.setError("Required");
+            } else if (TextUtils.isEmpty(edtPrice.getText().toString())) {
+                edtPrice.setError("Required");
+            } else if (TextUtils.isEmpty(edtQuantity.getText().toString())) {
+                edtQuantity.setError("Required");
+            } else if (selectedUpdateBrand == 0 && selectedUpdateCategory == 0) {
+                Toast.makeText(getContext(), "Please select a category or brand", Toast.LENGTH_SHORT).show();
+            } else {
+                int id = productDTO.getId();
+                String name = edtUpdateProductName.getText().toString();
+                String description = edtUpdateProductDescription.getText().toString();
+                String imageURL = edtImageUrl.getText().toString();
+                double price = Double.parseDouble(edtPrice.getText().toString());
+                int quantity = Integer.parseInt(edtQuantity.getText().toString());
+                int categoryId = selectedUpdateCategory;
+                int brandId = selectedUpdateBrand;
+                byte status = (byte) spinnerStatus.getSelectedItemPosition();
 
-            ProductDetailAdmin productDetailAdmin = new ProductDetailAdmin(id, name, price, description, imageURL, quantity, categoryId, brandId, status);
+                ProductDetailAdmin productDetailAdmin = new ProductDetailAdmin(id, name, price, description, imageURL, quantity, categoryId, brandId, status);
 
-            updateProduct(productDetailAdmin);
+                updateProduct(productDetailAdmin);
 
-            dialog.dismiss();
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
@@ -492,20 +508,42 @@ public class ProductManagementFragment extends Fragment {
         AlertDialog dialog = builder.create();
 
         btnCreate.setOnClickListener(v -> {
-            String name = edtCreateProductName.getText().toString();
-            String description = edtCreateProductDescription.getText().toString();
-            String imageUrl = edtImageUrl.getText().toString();
-            double price = Double.parseDouble(edtPrice.getText().toString());
-            int quantity = Integer.parseInt(edtQuantity.getText().toString());
-            int categoryId = selectedCreateCategory;
-            int brandId = selectedCreateBrand;
-            byte status = (byte) spinnerStatus.getSelectedItemPosition();
+            if (TextUtils.isEmpty(edtCreateProductName.getText().toString())) {
+                edtCreateProductName.setError("Required");
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(edtCreateProductDescription.getText().toString())) {
+                edtCreateProductDescription.setError("Required");
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(edtImageUrl.getText().toString())) {
+                edtImageUrl.setError("Required");
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
 
-            CreateProduct createProduct = new CreateProduct(name, price, description, imageUrl, quantity, categoryId, brandId, status);
+            } else if (TextUtils.isEmpty(edtPrice.getText().toString())) {
+                edtPrice.setError("Required");
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(edtQuantity.getText().toString())) {
+                edtQuantity.setError("Required");
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (selectedCreateCategory == 0 && selectedCreateCategory == 0) {
+                Toast.makeText(getContext(), "Please select a category or brand", Toast.LENGTH_SHORT).show();
+            } else {
+                String name = edtCreateProductName.getText().toString();
+                String description = edtCreateProductDescription.getText().toString();
+                String imageUrl = edtImageUrl.getText().toString();
+                double price = Double.parseDouble(edtPrice.getText().toString());
+                int quantity = Integer.parseInt(edtQuantity.getText().toString());
+                int categoryId = selectedCreateCategory;
+                int brandId = selectedCreateBrand;
+                byte status = (byte) spinnerStatus.getSelectedItemPosition();
 
-            addProduct(createProduct);
+                CreateProduct createProduct = new CreateProduct(name, price, description, imageUrl, quantity, categoryId, brandId, status);
 
-            dialog.dismiss();
+                addProduct(createProduct);
+
+
+
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
