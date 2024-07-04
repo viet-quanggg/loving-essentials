@@ -21,18 +21,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loving_essentials.Domain.Entity.Cart;
-import com.example.loving_essentials.Domain.Entity.ProductDTO;
+import com.example.loving_essentials.Domain.Entity.DTOs.CartItemDTO;
 import com.example.loving_essentials.Domain.Services.IService.ICartService;
 import com.example.loving_essentials.Domain.Services.Service.CartService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Adapter.CartAdapter;
 import com.example.loving_essentials.UI.ProductListActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,15 +90,23 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                     carts.addAll(Arrays.asList(cartsResult));
                     Double totalPrice = (double) 0;
                     List<Integer> quantity = new ArrayList<>();
-                    Map<ProductDTO, Integer> productQuantities = new HashMap<>();
+                    List<CartItemDTO> productQuantities = new ArrayList<>();
                     for (Cart cart : carts) {
-                        for (Map.Entry<Integer, ProductDTO> entry : cart.Products.entrySet()) {
-                            productQuantities.put(entry.getValue(), entry.getKey()); // key is quantity, value is product
-                        }
                         totalPrice += cart.getPrice();
+                        productQuantities.addAll(cart.getProducts()); // Add all CartItemDTOs to the list
                     }
-
-                    txtPrice.setText("Total: $" + totalPrice);
+                    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                    /*if (totalPrice>1000){
+                        totalPrice = totalPrice/1000;
+                        txtPrice.setText("Total: $" + totalPrice+"K");
+                    }else if (totalPrice>1000000){
+                        totalPrice = totalPrice/1000000;
+                        txtPrice.setText("Total: $" + totalPrice+"M");
+                    }
+                    else {
+                        txtPrice.setText("Total: $" + totalPrice);
+                    }*/
+                    txtPrice.setText("Total: $" + decimalFormat.format(totalPrice));
                     cartAdapter = new CartAdapter(productQuantities,getContext(),CartFragment.this);
                     recyclerViewCart.setAdapter(cartAdapter);
                 } else {

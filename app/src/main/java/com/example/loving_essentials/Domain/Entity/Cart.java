@@ -1,9 +1,11 @@
 package com.example.loving_essentials.Domain.Entity;
 
+import com.example.loving_essentials.Domain.Entity.DTOs.CartItemDTO;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Dictionary;
+import java.util.List;
 import java.util.Map;
 
 public class Cart {
@@ -22,12 +24,12 @@ public class Cart {
     @SerializedName("quantity")
     public int Quantity ;
     @SerializedName("products")
-    public Map<Integer, ProductDTO> Products;
+    public List<CartItemDTO> Products;
 
     public Cart() {
     }
 
-    public Cart(int id, LocalDateTime createAt, LocalDateTime updateAt, int buyerId, int productId, double price, int quantity, Map<Integer, ProductDTO> products) {
+    public Cart(int id, LocalDateTime createAt, LocalDateTime updateAt, int buyerId, int productId, double price, int quantity, List<CartItemDTO> products) {
         Id = id;
         CreateAt = createAt;
         UpdateAt = updateAt;
@@ -94,11 +96,11 @@ public class Cart {
         Quantity = quantity;
     }
 
-    public Map<Integer, ProductDTO> getProducts() {
+    public List<CartItemDTO> getProducts() {
         return Products;
     }
 
-    public void setProducts(Map<Integer, ProductDTO> products) {
+    public void setProducts(List<CartItemDTO> products) {
         Products = products;
     }
 }
