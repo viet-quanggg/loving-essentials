@@ -13,12 +13,12 @@
     import androidx.recyclerview.widget.RecyclerView;
 
     import com.example.loving_essentials.Domain.Entity.DTOs.OrderDTO;
+    import com.example.loving_essentials.Domain.Entity.DTOs.OrderDetailsDTO;
     import com.example.loving_essentials.Domain.Services.IService.IOrderService;
     import com.example.loving_essentials.Domain.Services.Service.OrderService;
     import com.example.loving_essentials.R;
-    import com.example.loving_essentials.UI.Adapter.OnOrderClickListener;
     import com.example.loving_essentials.UI.Adapter.OrderAdapter;
-    import com.example.loving_essentials.UI.MainActivity;
+    import com.example.loving_essentials.UI.Adapter.OrderDetailsApdapter;
 
     import java.io.IOException;
     import java.util.ArrayList;
@@ -29,43 +29,43 @@
     import retrofit2.Callback;
     import retrofit2.Response;
 
-    public class MyOrderFragment extends Fragment implements OnOrderClickListener {
-        List<OrderDTO> list;
-        OrderAdapter orderAdapter;
+    public class OrderDetailFragment extends Fragment {
+        List<OrderDetailsDTO> list;
+        OrderDetailsApdapter orderAdapter;
         RecyclerView recyclerView;
         IOrderService orderService;
-        int userId;
+        int orderId;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_order, container, false);
+            View view = inflater.inflate(R.layout.fragment_orderdetail, container, false);
 
-            recyclerView = view.findViewById(R.id.rv_cart_items);
+            recyclerView = view.findViewById(R.id.rv_orderdetail_items);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
             orderService = OrderService.getOrderService();
 
             list = new ArrayList<>();
-            orderAdapter = new OrderAdapter(getContext(), list, this);
+            orderAdapter = new OrderDetailsApdapter(getContext(), list);
             recyclerView.setAdapter(orderAdapter);
             Bundle args = getArguments();
-            if (args != null) {
-                int userId = args.getInt("userId");
-                fetchOrders(userId);
+            if (getArguments() != null) {
+                orderId = getArguments().getInt("orderId");
+                fetchOrders(orderId);
             } else {
                 Log.e(TAG, "Arguments are null, cannot fetch orders");
             }
 
             return view;
         }
-        private void fetchOrders(int userId) {
-            Call<OrderDTO[]> callOrders = orderService.getOrdersByUserId(userId);
-            callOrders.enqueue(new Callback<OrderDTO[]>() {
+        private void fetchOrders(int orderid) {
+            Call<OrderDetailsDTO[]> callOrders = orderService.getOrderDetailById(orderid);
+            callOrders.enqueue(new Callback<OrderDetailsDTO[]>() {
                 @Override
-                public void onResponse(Call<OrderDTO[]> call, Response<OrderDTO[]> response) {
+                public void onResponse(Call<OrderDetailsDTO[]> call, Response<OrderDetailsDTO[]> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        OrderDTO[] orders = response.body();
+                        OrderDetailsDTO[] orders = response.body();
                         list.addAll(Arrays.asList(orders));
                         orderAdapter.notifyDataSetChanged();
                     } else {
@@ -81,24 +81,9 @@
                 }
 
                 @Override
-                public void onFailure(Call<OrderDTO[]> call, Throwable t) {
+                public void onFailure(Call<OrderDetailsDTO[]> call, Throwable t) {
                     Log.e(TAG, "API call failed", t);
                 }
             });
-
         }
-        @Override
-        public void onOrderClick(int orderId) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("orderId", orderId);
-
-            OrderDetailFragment orderDetailFragment = new OrderDetailFragment();
-            orderDetailFragment.setArguments(bundle);
-
-            if (getActivity() != null) {
-                ((MainActivity) getActivity()).loadFragment(orderDetailFragment);
-            }
-        }
-
     }
-

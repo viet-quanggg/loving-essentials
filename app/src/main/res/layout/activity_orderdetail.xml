@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
-    tools:context=".UI.OrderActivity">
+    >
 
     <LinearLayout
         android:layout_width="386dp"
@@ -13,8 +13,8 @@
         android:weightSum="4">
 
         <ImageView
-            android:id="@+id/imageViewProduct"
-            android:layout_width="0dp"
+            android:id="@+id/imageViewProductOrderDetail"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="centerCrop"
@@ -30,37 +30,37 @@
             android:paddingEnd="8dp">
 
             <TextView
-                android:id="@+id/textViewCreateDate"
+                android:id="@+id/textViewProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Date: 01/01/2023"
+                android:text="Product Name: UrMom"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/textViewUpdateDate"
+                android:id="@+id/textViewQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Update Date: 01/02/2023"
+                android:text="Quantity: 2"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/textViewShipper"
+                android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Shipper name"
+                android:text="Price: $10000"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewTotalPrice"
+            android:id="@+id/textViewTotal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:gravity="center|end"
-            android:text="$20000"
+            android:text="Total: $20000"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 </LinearLayout>
