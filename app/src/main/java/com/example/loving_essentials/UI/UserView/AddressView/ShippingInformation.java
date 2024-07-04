@@ -44,6 +44,7 @@ public class ShippingInformation extends Fragment {
     private Button btnAddAddress, getBtnAddAddressPicker;
     private Fragment addAddressFragment;
 
+    private Fragment AddressDetail;
 
     public ShippingInformation() {
         // Required empty public constructor
@@ -69,8 +70,12 @@ public class ShippingInformation extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("AddressDetails", selected);
                 bundle.putParcelable("UserInfo", selected.userInformation);
-                Intent intent = new Intent(getActivity(), AddressDetail.class).putExtra("Bundle", bundle);
-                startActivity(intent);
+                AddressDetail = new AddressDetail();
+                AddressDetail.setArguments(bundle);
+                loadFragment(AddressDetail);
+
+//                Intent intent = new Intent(getActivity(), AddressDetail.class).putExtra("Bundle", bundle);
+//                startActivity(intent);
             }
         });
 
