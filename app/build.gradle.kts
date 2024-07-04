@@ -50,4 +50,13 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.5.0");
+
+    //OSM
+    implementation("org.osmdroid:osmdroid-android:6.1.10")
+    implementation("org.osmdroid:osmdroid-mapsforge:6.1.10")
+    implementation("org.osmdroid:osmdroid-wms:6.1.10")
+    implementation("org.osmdroid:osmdroid-geopackage:6.1.10")
 }

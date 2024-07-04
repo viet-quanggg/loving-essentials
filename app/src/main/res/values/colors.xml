@@ -16,4 +16,15 @@
 
     <!--colros for card-->
     <color name="whiteCardColor">#fff</color>
+
+    <color name="primary_blue">#3B5998</color> <!-- Blue -->
+    <color name="secondary_purple">#8A2BE2</color> <!-- Purple -->
+    <color name="dark_gray">#333333</color> <!-- Dark Gray for text -->
+    <color name="light_gray">#EEEEEE</color> <!-- Light Gray for background -->
+
+    <color name="dark_purple">#521C98</color>
+    <color name="light_purple">#F1EBFD</color>
+
+    <color name="button_completed">#008000</color> <!-- Màu xanh -->
+    <color name="button_delivered">#E1D03A</color>  <!-- Màu vàng -->
 </resources>

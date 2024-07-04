@@ -1,5 +1,6 @@
 package com.example.loving_essentials.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loving_essentials.Domain.Entity.Brand;
 import com.example.loving_essentials.Domain.Entity.Category;
-import com.example.loving_essentials.Domain.Entity.Product;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
 import com.example.loving_essentials.Domain.Services.IService.IBrandService;
 import com.example.loving_essentials.Domain.Services.IService.ICategoryService;
@@ -28,9 +28,8 @@ import com.example.loving_essentials.Domain.Services.Service.BrandService;
 import com.example.loving_essentials.Domain.Services.Service.CategoryService;
 import com.example.loving_essentials.Domain.Services.Service.ProductService;
 import com.example.loving_essentials.R;
-import com.example.loving_essentials.UI.Adapter.ProductAdapter;
 import com.example.loving_essentials.UI.Adapter.ProductCardListAdapter;
-import com.example.loving_essentials.UI.Fragments.HomeFragment;
+import com.example.loving_essentials.UI.Fragments.CartFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +54,8 @@ public class ProductListActivity extends AppCompatActivity {
     Button btnFilter;
     EditText edtSearchName;
     String searchName;
+    Button btnCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,6 +191,5 @@ public class ProductListActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 }

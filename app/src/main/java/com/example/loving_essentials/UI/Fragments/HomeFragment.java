@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -139,8 +140,18 @@ public class HomeFragment extends Fragment {
         btnSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProductListActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ProductListActivity.class);
+//                startActivity(intent);
+                Fragment newFragment = new ProductListFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack if needed
+                transaction.replace(R.id.home_container, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
             }
         });
 

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".UI.UserView.AddressView.AddressDetail">
+
+<androidx.appcompat.widget.Toolbar
+android:id="@+id/toolbarAddress"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:background="@color/primary_blue"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:title="Address Details"
+    app:titleTextColor="@color/white"
+    android:elevation="4dp" />
+
+<TextView
+android:id="@+id/textView9"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:padding="8dp"
+    android:text="Contact"
+    android:textSize="18sp"
+    android:textColor="@color/primary_blue"
+    android:textStyle="bold"
+    android:fontFamily="sans-serif-medium"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbarAddress"
+    android:background="@color/white"
+    android:elevation="2dp" />
+
+<EditText
+android:id="@+id/edtName"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+    android:hint="Contact Name"
+    android:inputType="text"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/textView9"
+    android:fontFamily="sans-serif" />
+
+<EditText
+android:id="@+id/edtPhone"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="Phone Number"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtName"
+android:fontFamily="sans-serif" />
+
+<TextView
+android:id="@+id/textView10"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:padding="8dp"
+android:text="Address"
+android:textSize="18sp"
+android:textColor="@color/primary_blue"
+android:textStyle="bold"
+android:fontFamily="sans-serif-medium"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtPhone"
+android:background="@color/white"
+android:elevation="2dp" />
+
+<EditText
+android:id="@+id/edtHouseNumber"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="House Number"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/textView10"
+android:fontFamily="sans-serif" />
+
+<EditText
+android:id="@+id/edtStreet"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="Street"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtHouseNumber"
+android:fontFamily="sans-serif" />
+
+<EditText
+android:id="@+id/edtWard"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="Ward"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtStreet"
+android:fontFamily="sans-serif" />
+
+<EditText
+android:id="@+id/edtDistrict"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="District"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtWard"
+android:fontFamily="sans-serif" />
+
+<EditText
+android:id="@+id/edtCity"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:padding="12dp"
+android:hint="City"
+android:inputType="text"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/edtDistrict"
+android:fontFamily="sans-serif" />
+
+<Button
+android:id="@+id/deleteAddressButton"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+android:padding="12dp"
+    android:text="Delete Address"
+    android:textColor="@color/white"
+    android:backgroundTint="@color/secondary_purple"
+    android:fontFamily="sans-serif-medium"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/edtCity" />
+
+<Button
+android:id="@+id/updateAddressButton"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+android:padding="12dp"
+android:text="Save Changes"
+android:textColor="@color/white"
+android:backgroundTint="@color/primary_blue"
+    android:fontFamily="sans-serif-medium"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/deleteAddressButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

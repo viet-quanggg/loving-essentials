@@ -42,30 +42,39 @@ public class OrderDetailsApdapter extends RecyclerView.Adapter<OrderDetailsApdap
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailsApdapter.ViewHolder holder, int position) {
+        OrderDetailsDTO orderDetail = list.get(position);
+        String imageUrl = orderDetail.getUrl();
 
-        Glide.with(context)
-                .load(list.get(position).getUrl())
-                .centerCrop()
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, com.bumptech.glide.request.target.Target<Drawable> target, boolean isFirstResource) {
-                        Log.e("GLIDE_TAG", "Image Load Error", e);
-                        return false;
-                    }
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.milk) // Placeholder image
+                    .error(R.drawable.milk) // Error image
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Log.e("GLIDE_TAG", "Image Load Error", e);
+                            return false;
+                        }
 
-                    @Override
-                    public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .into(holder.imageView);
-        String name = list.get(position).getProductName();
-        if(name.length() > 10){
+                        @Override
+                        public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .into(holder.imageView);
+        } else {
+            holder.imageView.setImageResource(R.drawable.milk); // Default image if URL is null or empty
+        }
+
+        String name = orderDetail.getProductName();
+        if (name.length() > 10) {
             name = name.substring(0, 10) + "...";
         }
-        holder.quantity.setText(String.valueOf(list.get(position).getQuantity()));
+        holder.quantity.setText(String.valueOf(orderDetail.getQuantity()));
         holder.productName.setText(name);
-        holder.price.setText(String.valueOf(list.get(position).getPrice()));
+        holder.price.setText(String.valueOf(orderDetail.getPrice()));
     }
 
     @Override
@@ -79,7 +88,7 @@ public class OrderDetailsApdapter extends RecyclerView.Adapter<OrderDetailsApdap
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageViewProduct);
+            imageView = itemView.findViewById(R.id.imageViewProductOrderDetail);
             price = itemView.findViewById(R.id.textViewPrice);
             productName = itemView.findViewById(R.id.textViewProductName);
             quantity = itemView.findViewById(R.id.textViewQuantity);

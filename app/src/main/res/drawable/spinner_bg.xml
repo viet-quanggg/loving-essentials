@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <!-- Background shape and color -->
+            <solid android:color="@color/light_purple"/>
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+    <item>
+        <!-- Spinner arrow -->
+        <bitmap
+            android:gravity="end|center_vertical"
+            android:src="@drawable/abc_spinner_mtrl_am_alpha"
+            android:tint="@color/dark_purple"/>
+    </item>
+</layer-list>

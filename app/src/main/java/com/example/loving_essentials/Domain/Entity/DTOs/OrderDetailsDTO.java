@@ -12,19 +12,19 @@ public class OrderDetailsDTO
     public Date Created;
     @SerializedName("updated")
     public Date Updated;*/
-    @SerializedName("Url")
-    String Url;
-    @SerializedName("ProductName")
+    @SerializedName("url")
+    public String Url;
+    @SerializedName("productName")
     public String productName;
-    @SerializedName("Price")
+    @SerializedName("price")
     public double price;
-    @SerializedName("Quantity")
+    @SerializedName("quantity")
     public double quantity;
 
     public OrderDetailsDTO(int id, int orderId, String url, String productName, double price, double quantity) {
         this.id = id;
         this.orderId = orderId;
-        Url = url;
+        this.Url = url;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
