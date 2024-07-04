@@ -28,6 +28,7 @@ import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.CartFragment;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
+import com.example.loving_essentials.UI.Fragments.MyOrderFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.example.loving_essentials.UI.UserView.AddressView.ShippingInformation;
 import com.google.android.material.navigation.NavigationView;
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolbar;
     Menu menu;
+    Fragment myOrderFragment;
     Fragment homeFragment, userProfileFragment, myAddressFragment;
     ImageView addcart;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_container, fragment);
         transaction.commit();
@@ -144,6 +145,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             args.putInt("userId", userId);
             myAddressFragment.setArguments(args);
             loadFragment(myAddressFragment);
+        }
+        else if (id == R.id.nav_myorder) {
+            Intent intent = getIntent();
+            int userId = intent.getIntExtra("id", 0);
+
+            Bundle args = new Bundle();
+            args.putInt("userId", userId);
+
+            myOrderFragment = new MyOrderFragment();
+            myOrderFragment.setArguments(args);
+            loadFragment(myOrderFragment);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
