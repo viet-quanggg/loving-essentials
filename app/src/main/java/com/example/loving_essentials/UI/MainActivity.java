@@ -28,6 +28,7 @@ import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.CartFragment;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
+import com.example.loving_essentials.UI.Fragments.LoginActivity;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.example.loving_essentials.UI.UserView.AddressView.ShippingInformation;
 import com.google.android.material.navigation.NavigationView;
@@ -116,15 +117,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_products) {
             Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_login) {
+        } /*else if (id == R.id.nav_login) {
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(false);
             menu.findItem(R.id.nav_address).setVisible(true);
-        } else if (id == R.id.nav_logout) {
-            menu.findItem(R.id.nav_logout).setVisible(false);
+        }*/ else if (id == R.id.nav_logout) {
+            /*menu.findItem(R.id.nav_logout).setVisible(false);
             menu.findItem(R.id.nav_profile).setVisible(false);
-            menu.findItem(R.id.nav_login).setVisible(true);
+            menu.findItem(R.id.nav_login).setVisible(true);*/
+
+            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(login);
+
         } else if (id == R.id.nav_profile) {
             Intent intent = getIntent();
             int userId = intent.getIntExtra("id", 0);
