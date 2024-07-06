@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -59,4 +60,7 @@ dependencies {
     implementation("org.osmdroid:osmdroid-mapsforge:6.1.10")
     implementation("org.osmdroid:osmdroid-wms:6.1.10")
     implementation("org.osmdroid:osmdroid-geopackage:6.1.10")
+
+    //Google Map
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
 }
