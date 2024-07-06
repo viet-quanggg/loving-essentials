@@ -13,6 +13,7 @@
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="house_delivery_30_000vnd">House Delivery <bold>(+30.000vnd)</bold> </string>
     <!-- Role options -->
     <string-array name="role_array">
         <item>User</item>
