@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.loving_essentials.Domain.Entity.DTOs.StoreDTO;
+import com.example.loving_essentials.Domain.Entity.Store;
 import com.example.loving_essentials.Domain.Services.API.APIClient;
+import com.example.loving_essentials.Domain.Services.IService.IOrderService;
 import com.example.loving_essentials.Domain.Services.IService.IStoreService;
+import com.example.loving_essentials.Domain.Services.Service.OrderService;
+import com.example.loving_essentials.Domain.Services.Service.StoreService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.UserView.AddressView.MapFragment;
 
@@ -41,7 +45,7 @@ public class StoreActivity extends AppCompatActivity {
         updateStoreButton = findViewById(R.id.update_store_button);
 
         // Initialize store service
-        storeService = APIClient.getClient().create(IStoreService.class);
+        storeService = StoreService.getStoreService();
 
         // Example store ID to fetch
         int storeId = 1; // You can pass this ID from another activity or fragment
@@ -69,12 +73,12 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     private void fetchStoreDetails(int storeId) {
-        Call<StoreDTO> call = storeService.GetStoreById(storeId);
-        call.enqueue(new Callback<StoreDTO>() {
+        Call<Store> call = storeService.getStoreById(storeId);
+        call.enqueue(new Callback<Store>() {
             @Override
-            public void onResponse(Call<StoreDTO> call, Response<StoreDTO> response) {
+            public void onResponse(Call<Store> call, Response<Store> response) {
                 if (response.isSuccessful()) {
-                    StoreDTO store = response.body();
+                    Store store = response.body();
                     if (store != null) {
                         storeName.setText(store.getName());
                         storeAddress.setText(store.getAddress());
@@ -87,7 +91,7 @@ public class StoreActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<StoreDTO> call, Throwable t) {
+            public void onFailure(Call<Store> call, Throwable t) {
                 Log.e(TAG, "Failed to fetch store details", t);
             }
         });

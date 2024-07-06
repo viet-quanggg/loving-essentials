@@ -40,6 +40,15 @@
             android:name=".UI.MyDeliveryActivity"
             android:exported="false" />
         <activity
+            android:name=".UI.StoreActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".UI.DeliveryActivity"
             android:exported="false" />
         <activity
@@ -109,9 +118,6 @@
             android:name=".UI.UserView.AddressView.ShippingInformation"
             android:exported="true" />
 
-        <activity
-            android:name=".UI.StoreActivity"
-            android:exported="true" />
         <activity
             android:name=".UI.Fragments.StoreFragment"
             android:exported="false" />

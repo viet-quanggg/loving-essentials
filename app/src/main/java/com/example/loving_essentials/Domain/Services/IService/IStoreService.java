@@ -1,6 +1,7 @@
 package com.example.loving_essentials.Domain.Services.IService;
 
 import com.example.loving_essentials.Domain.Entity.DTOs.StoreDTO;
+import com.example.loving_essentials.Domain.Entity.Store;
 
 import java.util.List;
 
@@ -14,18 +15,9 @@ import retrofit2.http.Path;
 
 public interface IStoreService {
 
-    @GET()
-    Call<List<StoreDTO>> GetStores();
+    String ENDPOINT = "Store";
 
-    @GET("{id}")
-    Call<StoreDTO> GetStoreById(@Path("id") int id);
+    @GET(ENDPOINT + "/{id}")
+    Call<Store> getStoreById(@Path("id") int id);
 
-    @POST()
-    Call<Void> CreateStore(@Body StoreDTO store);
-
-    @PUT()
-    Call<Void> UpdateStore(@Body StoreDTO store);
-
-    @DELETE("{id}")
-    Call<Void> DeleteStore(@Path("id") int id);
 }

@@ -36,62 +36,62 @@ public class UpdateStoreFragment extends Fragment {
     public UpdateStoreFragment(StoreDTO store) {
         this.store = store;
     }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.update_store_admin, container, false);
-
-        editStoreName = view.findViewById(R.id.editSName);
-        editStoreAddress = view.findViewById(R.id.editSAddress);
-        editStorePhone = view.findViewById(R.id.editSPhone);
-        editStoreOpenHours = view.findViewById(R.id.editSOpen);
-        editStoreCloseHours = view.findViewById(R.id.edtiSClose);
-        saveStoreButton = view.findViewById(R.id.btnCreateStore);
-
-        storeService = APIClient.getClient().create(IStoreService.class);
-
-        if (store != null) {
-            editStoreName.setText(store.getName());
-            editStoreAddress.setText(store.getAddress());
-            editStorePhone.setText(store.getPhone());
-            editStoreOpenHours.setText(store.getOpenHours());
-            editStoreCloseHours.setText(store.getCloseHours());
-        }
-
-        saveStoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                store.setName(editStoreName.getText().toString());
-                store.setAddress(editStoreAddress.getText().toString());
-                store.setPhone(editStorePhone.getText().toString());
-                store.setOpenHours(editStoreOpenHours.getText().toString());
-                store.setCloseHours(editStoreCloseHours.getText().toString());
-
-                updateStore(store);
-            }
-        });
-
-        return view;
-    }
-
-    private void updateStore(StoreDTO store) {
-        Call<Void> call = storeService.UpdateStore(store);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Store updated successfully", Toast.LENGTH_SHORT).show();
-                    getFragmentManager().popBackStack();  // Quay lại fragment trước
-                } else {
-                    Log.e(TAG, "Update failed: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(TAG, "Update failed", t);
-            }
-        });
-    }
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.update_store_admin, container, false);
+//
+//        editStoreName = view.findViewById(R.id.editSName);
+//        editStoreAddress = view.findViewById(R.id.editSAddress);
+//        editStorePhone = view.findViewById(R.id.editSPhone);
+//        editStoreOpenHours = view.findViewById(R.id.editSOpen);
+//        editStoreCloseHours = view.findViewById(R.id.edtiSClose);
+//        saveStoreButton = view.findViewById(R.id.btnCreateStore);
+//
+//        storeService = APIClient.getClient().create(IStoreService.class);
+//
+//        if (store != null) {
+//            editStoreName.setText(store.getName());
+//            editStoreAddress.setText(store.getAddress());
+//            editStorePhone.setText(store.getPhone());
+//            editStoreOpenHours.setText(store.getOpenHours());
+//            editStoreCloseHours.setText(store.getCloseHours());
+//        }
+//
+//        saveStoreButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                store.setName(editStoreName.getText().toString());
+//                store.setAddress(editStoreAddress.getText().toString());
+//                store.setPhone(editStorePhone.getText().toString());
+//                store.setOpenHours(editStoreOpenHours.getText().toString());
+//                store.setCloseHours(editStoreCloseHours.getText().toString());
+//
+//                updateStore(store);
+//            }
+//        });
+//
+//        return view;
+//    }
+//
+//    private void updateStore(StoreDTO store) {
+//        Call<Void> call = storeService.UpdateStore(store);
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(getActivity(), "Store updated successfully", Toast.LENGTH_SHORT).show();
+//                    getFragmentManager().popBackStack();  // Quay lại fragment trước
+//                } else {
+//                    Log.e(TAG, "Update failed: " + response.code());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.e(TAG, "Update failed", t);
+//            }
+//        });
+//    }
 }
