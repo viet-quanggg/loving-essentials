@@ -41,7 +41,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     private List<Cart> carts;
     private RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
-    private TextView txtPrice;
+    private TextView txtPrice, txtItem;
     private Button btnCon, btnOrder;
 
     @Nullable
@@ -60,6 +60,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
         txtPrice = view.findViewById(R.id.totalPrice);
         btnCon = view.findViewById(R.id.btnContinueShopping);
         btnOrder = view.findViewById(R.id.btnCheckout);
+        txtItem = view.findViewById(R.id.IteminCart);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         if (sharedPreferences.contains("id")) {
             int id = sharedPreferences.getInt("id", -1);
@@ -91,8 +92,12 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                     Double totalPrice = (double) 0;
                     List<Integer> quantity = new ArrayList<>();
                     List<CartItemDTO> productQuantities = new ArrayList<>();
+                    Integer item = 0;
                     for (Cart cart : carts) {
                         totalPrice += cart.getPrice();
+                        for (CartItemDTO items : cart.getProducts()) {
+                            item += items.getQuantity();
+                        }
                         productQuantities.addAll(cart.getProducts()); // Add all CartItemDTOs to the list
                     }
                     DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -107,6 +112,12 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                         txtPrice.setText("Total: $" + totalPrice);
                     }*/
                     txtPrice.setText("Total: $" + decimalFormat.format(totalPrice));
+                    if (item>1){
+                        txtItem.setText("Value of : "+item+" items");
+                    }else {
+                        txtItem.setText("Value of : "+item+" item");
+                    }
+
                     cartAdapter = new CartAdapter(productQuantities,getContext(),CartFragment.this);
                     recyclerViewCart.setAdapter(cartAdapter);
                 } else {
