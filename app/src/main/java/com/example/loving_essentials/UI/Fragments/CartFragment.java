@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.example.loving_essentials.Domain.Services.Service.CartService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Adapter.CartAdapter;
 import com.example.loving_essentials.UI.ProductListActivity;
+import com.example.loving_essentials.UI.UserView.CheckoutView.CheckoutFragment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -43,7 +45,9 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     private CartAdapter cartAdapter;
     private TextView txtPrice;
     private Button btnCon, btnOrder;
-
+    private Double totalPrice;
+    private int id;
+    private Fragment checkoutFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
         btnOrder = view.findViewById(R.id.btnCheckout);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         if (sharedPreferences.contains("id")) {
-            int id = sharedPreferences.getInt("id", -1);
+            id = sharedPreferences.getInt("id", -1);
             loadCartData(id);
         } else {
             // the id key is not present in the SharedPreferences
@@ -74,7 +78,28 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
             startActivity(intent);
         });
 
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkoutFragment = new CheckoutFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", id);
+                bundle.putDouble("total", totalPrice);
+                checkoutFragment.setArguments(bundle);
+                loadFragment(checkoutFragment);
+            }
+        });
+
         return view;
+    }
+
+    private void loadFragment(Fragment fragment) {
+        if (getActivity() != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.home_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
     private void loadCartData(int id) {
         ICartService cartService = CartService.getICartService();
@@ -88,7 +113,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                     carts = new ArrayList<>();
                     carts.clear();
                     carts.addAll(Arrays.asList(cartsResult));
-                    Double totalPrice = (double) 0;
+                     totalPrice = (double) 0;
                     List<Integer> quantity = new ArrayList<>();
                     List<CartItemDTO> productQuantities = new ArrayList<>();
                     for (Cart cart : carts) {
