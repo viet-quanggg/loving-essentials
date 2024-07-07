@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.loving_essentials.Domain.Entity.Store;
 import com.example.loving_essentials.Domain.Services.API.APIClient;
+import com.example.loving_essentials.Domain.Services.IService.IOrderService;
 import com.example.loving_essentials.Domain.Services.IService.IStoreService;
+import com.example.loving_essentials.Domain.Services.Service.OrderService;
+import com.example.loving_essentials.Domain.Services.Service.StoreService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.UpdateStoreFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,7 +54,7 @@ public class StoreActivity extends AppCompatActivity implements OnMapReadyCallba
         updateStoreButton = findViewById(R.id.update_store_button);
 
         // Initialize store service
-        storeService = APIClient.getClient().create(IStoreService.class);
+        storeService = StoreService.getStoreService();
 
         // Example store ID to fetch
         int storeId = 1; // You can pass this ID from another activity or fragment
@@ -76,7 +78,7 @@ public class StoreActivity extends AppCompatActivity implements OnMapReadyCallba
     }
 
     private void fetchStoreDetails(int storeId) {
-        Call<Store> call = storeService.GetStoreById(storeId);
+        Call<Store> call = storeService.getStoreById(storeId);
         call.enqueue(new Callback<Store>() {
             @Override
             public void onResponse(Call<Store> call, Response<Store> response) {

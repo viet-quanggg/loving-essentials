@@ -1,27 +1,32 @@
 package com.example.loving_essentials.Domain.Entity.DTOs;
 
 import com.example.loving_essentials.Domain.Entity.OrderDetail;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
 
 public class OrderDTO {
     int id;
+    @SerializedName("created")
     public Date Created;
+    @SerializedName("updated")
     public Date Updated;
+    @SerializedName("totalPrice")
     double totalPrice;
+    @SerializedName("buyerId")
     public int buyerId;
-    public int ShipperId;
+    @SerializedName("shipperName")
+    public String ShipperName;
     public List<OrderDetail> OrderDetails;
 
-    public OrderDTO(int id, Date created, Date updated, double totalPrice, int buyerId, int shipperId, List<OrderDetail> orderDetails) {
+    public OrderDTO(int id, Date created, Date updated, double totalPrice, int buyerId, String shipperName) {
         this.id = id;
         Created = created;
         Updated = updated;
         this.totalPrice = totalPrice;
         this.buyerId = buyerId;
-        ShipperId = shipperId;
-        OrderDetails = orderDetails;
+        ShipperName = shipperName;
     }
 
     public int getId() {
@@ -64,12 +69,12 @@ public class OrderDTO {
         this.buyerId = buyerId;
     }
 
-    public int getShipperId() {
-        return ShipperId;
+    public String getShipperName() {
+        return ShipperName;
     }
 
-    public void setShipperId(int shipperId) {
-        ShipperId = shipperId;
+    public void setShipperName(String shipperName) {
+        ShipperName = shipperName;
     }
 
     public List<OrderDetail> getOrderDetails() {

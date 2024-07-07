@@ -14,6 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface IStoreService {
+<<<<<<< HEAD
     String ENDPOINT = "Store";
     @GET(ENDPOINT)
     Call<List<StoreDTO>> GetStores();
@@ -29,4 +30,12 @@ public interface IStoreService {
 
     @DELETE(ENDPOINT + "/{id}")
     Call<Void> DeleteStore(@Path("id") int id);
+=======
+
+    String ENDPOINT = "Store";
+
+    @GET(ENDPOINT + "/{id}")
+    Call<Store> getStoreById(@Path("id") int id);
+
+>>>>>>> main
 }

@@ -52,14 +52,6 @@
                 android:text="Shipper name"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textViewQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Quantity: 3"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </LinearLayout>
 
         <TextView
@@ -68,7 +60,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:gravity="center|end"
-            android:text="$20"
+            android:text="$20000"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 </LinearLayout>

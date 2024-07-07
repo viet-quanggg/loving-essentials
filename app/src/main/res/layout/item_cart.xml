@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#00FFFFFF"
     android:padding="8dp">
 
     <ImageView
@@ -11,9 +12,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtProductNamecart"
@@ -22,9 +23,9 @@
         android:layout_marginStart="8dp"
         android:text="Product Name"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgProductcart"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtProductPricecart"
@@ -33,39 +34,69 @@
         android:layout_marginTop="8dp"
         android:text="Price"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgProductcart"
-        app:layout_constraintTop_toBottomOf="@id/txtProductNamecart"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/txtProductNamecart" />
 
     <LinearLayout
         android:id="@+id/quantitySection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@id/imgProductcart"
-        app:layout_constraintTop_toBottomOf="@id/txtProductPricecart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toEndOf="@id/imgProductcart"
+        app:layout_constraintTop_toBottomOf="@id/txtProductPricecart">
 
-        <Button
+        <TextView
+            android:id="@+id/btnDecreaseQuantityitem"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/iconminus" />
+
+        <!--<Button
             android:id="@+id/btnDecreaseQuantityitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-" />
+            android:text="-" />-->
 
         <TextView
             android:id="@+id/txtQuantityitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
             android:text="1"
             android:textSize="16sp" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btnIncreaseQuantityitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+" />
+            android:background="@android:drawable/ic_input_add" />-->
+        <TextView
+            android:id="@+id/btnIncreaseQuantityitem"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/plusicon" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/btnClearCart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@android:drawable/ic_delete" />
+       <!-- <Button
+            android:id="@+id/btnClearCart"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_input_add"
+            android:backgroundTint="@android:color/darker_gray"
+            android:elevation="4dp"
+            android:textColor="#D50000" />-->
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

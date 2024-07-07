@@ -24,6 +24,8 @@ public interface ICartService {
     @DELETE(END_POINT + "/{buyerId}/{productId}/{quantity}")
     Call<Cart> removeProductFromCart(@Path("buyerId") int buyerId, @Path("productId") int productId, @Path("quantity") int quantity);
 
+    @DELETE(END_POINT + "/clear/{buyerId}/{productId}")
+    Call<Cart> clearProductFromCart(@Path("buyerId") int buyerId, @Path("productId") int productId);
     @DELETE(END_POINT + "/{cartId}")
     Call<Void> deleteCart(@Path("cartId") int cartId);
 }

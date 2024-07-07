@@ -19,6 +19,7 @@ import com.example.loving_essentials.Domain.Entity.User;
 import com.example.loving_essentials.Domain.Services.IService.IAuthService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.AdminMainActivity;
+import com.example.loving_essentials.UI.DeliveryActivity;
 import com.example.loving_essentials.UI.MainActivity;
 import com.google.android.gms.common.SignInButton;
 
@@ -132,6 +133,11 @@ public class LoginActivity extends AppCompatActivity {
         } else if (role == 2) {
             // Navigate to another page
             Toast.makeText(LoginActivity.this, "Login successful with Shipper Role", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, DeliveryActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("name", name);
+            intent.putExtra("role", role);
+            startActivity(intent);
         } else if (role == 3) {
             // Navigate to another page
             Toast.makeText(LoginActivity.this, "Login successful with Admin Role", Toast.LENGTH_SHORT).show();

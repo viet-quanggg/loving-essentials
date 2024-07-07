@@ -40,18 +40,17 @@
                     android:text="Category"
                     android:textSize="21sp"
                     android:textStyle="bold" />
-
-                <TextView
+                <Button
                     android:id="@+id/category_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginRight="8dp"
-                    android:layout_weight="1"
                     android:fontFamily="@font/amethysta"
-                    android:gravity="end"
                     android:text="See All"
                     android:textColor="@color/pink"
                     android:textSize="18sp"
+                    android:background="@android:color/transparent"
                     android:textStyle="bold" />
 
             </LinearLayout>

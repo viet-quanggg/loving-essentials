@@ -12,7 +12,7 @@
         android:id="@+id/store_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Store Name"
+        android:text="Store Name"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/store_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Store Address"
+        android:text="Store Address"
         app:layout_constraintTop_toBottomOf="@id/store_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/store_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Phone Number"
+        android:text="Phone Number"
         app:layout_constraintTop_toBottomOf="@id/store_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,24 +43,11 @@
         android:id="@+id/store_hours"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Open Hours - Close Hours"
+        android:text="Open Hours - Close Hours"
         app:layout_constraintTop_toBottomOf="@id/store_phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
-
-    <!-- Nút thao tác -->
-
-    <Button
-        android:id="@+id/view_on_map_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="View On Maps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_hours" />
 
     <Button
         android:id="@+id/update_store_button"
@@ -69,7 +56,15 @@
         android:layout_marginTop="24dp"
         android:text="Update Store"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/store_hours" />
+
+    <fragment
+        android:id="@+id/id_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.loving_essentials.Domain.Services.IService;
 
+import com.example.loving_essentials.Domain.Entity.DTOs.ShipperDTO.Shipper;
 import com.example.loving_essentials.Domain.Entity.DTOs.UserDTO.UserDTO;
 import com.example.loving_essentials.Domain.Entity.DTOs.UserDTO.UserProfileDTO;
 
@@ -27,4 +28,6 @@ public interface IUserService {
     Call<UserDTO> addUser(@Body UserDTO user);
     @DELETE(ENDPOINT + "/delete-user/{id}")
     Call<Void> deleteUser(@Path("id") int id);
+    @GET(ENDPOINT + "/shipper-list")
+    Call<List<Shipper>> getShippers();
 }
