@@ -1,5 +1,7 @@
 package com.example.loving_essentials.UI.UserView.CheckoutView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -80,6 +82,7 @@ public class CheckoutFragment extends Fragment {
                 MyOrderDetail.setArguments(bundle);
                 Toast.makeText(getActivity(), "Order placed !", Toast.LENGTH_SHORT).show();
                 loadFragment(MyOrderDetail);
+                gotoUrl("https://pay.payos.vn/web/6544084352374b20893331d2c23ed4ce");
 
             }
         });
@@ -127,6 +130,11 @@ public class CheckoutFragment extends Fragment {
         iAddressService = AddressService.geAddressService();
         GetAddressData();
         return  view;
+    }
+
+    private void gotoUrl(String url) {
+        Uri uri = Uri.parse(url);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     private void GetAddressData() {
