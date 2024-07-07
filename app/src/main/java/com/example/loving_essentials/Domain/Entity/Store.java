@@ -1,6 +1,8 @@
 package com.example.loving_essentials.Domain.Entity;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable {
     private int id;
     private String name;
     private double latitude;

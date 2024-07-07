@@ -5,28 +5,40 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.loving_essentials.Domain.Entity.DTOs.StoreDTO;
+import com.example.loving_essentials.Domain.Entity.Store;
 import com.example.loving_essentials.Domain.Services.API.APIClient;
 import com.example.loving_essentials.Domain.Services.IService.IStoreService;
 import com.example.loving_essentials.R;
-import com.example.loving_essentials.UI.UserView.AddressView.MapFragment;
+import com.example.loving_essentials.UI.Fragments.UpdateStoreFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StoreActivity extends AppCompatActivity {
+public class StoreActivity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView storeName;
     private TextView storeAddress;
     private TextView storePhone;
     private TextView storeHours;
-    private Button viewOnMapButton;
     private Button updateStoreButton;
     private IStoreService storeService;
     private static final String TAG = "StoreActivity";
+    private GoogleMap gMap;
+    private Store store;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +49,6 @@ public class StoreActivity extends AppCompatActivity {
         storeAddress = findViewById(R.id.store_address);
         storePhone = findViewById(R.id.store_phone);
         storeHours = findViewById(R.id.store_hours);
-        viewOnMapButton = findViewById(R.id.view_on_map_button);
         updateStoreButton = findViewById(R.id.update_store_button);
 
         // Initialize store service
@@ -49,37 +60,34 @@ public class StoreActivity extends AppCompatActivity {
         // Fetch store details
         fetchStoreDetails(storeId);
 
-        // Set button listeners
-        viewOnMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.storeMap, new MapFragment())
-                        .addToBackStack(null)  // Nếu bạn cần cho phép back lại
-                        .commit();
-            }
-        });
+        // Map fragment
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
+        // Update store button click listener
         updateStoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle update store logic here
+                openUpdateStoreDialog();
             }
         });
     }
 
     private void fetchStoreDetails(int storeId) {
-        Call<StoreDTO> call = storeService.GetStoreById(storeId);
-        call.enqueue(new Callback<StoreDTO>() {
+        Call<Store> call = storeService.GetStoreById(storeId);
+        call.enqueue(new Callback<Store>() {
             @Override
-            public void onResponse(Call<StoreDTO> call, Response<StoreDTO> response) {
+            public void onResponse(Call<Store> call, Response<Store> response) {
                 if (response.isSuccessful()) {
-                    StoreDTO store = response.body();
+                    store = response.body();
                     if (store != null) {
                         storeName.setText(store.getName());
                         storeAddress.setText(store.getAddress());
                         storePhone.setText(store.getPhone());
                         storeHours.setText(store.getOpenHours() + " - " + store.getCloseHours());
+                        updateMapLocation(store.getLatitude(), store.getLongitude());
                     }
                 } else {
                     Log.e(TAG, "Response not successful: " + response.code());
@@ -87,9 +95,48 @@ public class StoreActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<StoreDTO> call, Throwable t) {
+            public void onFailure(Call<Store> call, Throwable t) {
                 Log.e(TAG, "Failed to fetch store details", t);
             }
         });
+    }
+
+    private void updateMapLocation(double latitude, double longitude) {
+        if (gMap != null) {
+            LatLng storeLocation = new LatLng(latitude, longitude);
+            gMap.clear();
+            gMap.addMarker(new MarkerOptions().position(storeLocation).title(store.getName()));
+            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(storeLocation, 18));
+        }
+    }
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        gMap = googleMap;
+        if (store != null) {
+            updateMapLocation(store.getLatitude(), store.getLongitude());
+        }
+    }
+
+    private void openUpdateStoreDialog() {
+        if (store != null) {
+            UpdateStoreFragment dialogFragment = new UpdateStoreFragment(store);
+            dialogFragment.setOnStoreUpdatedListener(new UpdateStoreFragment.OnStoreUpdatedListener() {
+                @Override
+                public void onStoreUpdated(Store updatedStore) {
+                    // Xử lý khi thông tin cửa hàng được cập nhật thành công
+                    store = updatedStore;
+                    updateUI(); // Cập nhật giao diện người dùng
+                    Toast.makeText(StoreActivity.this, "Store updated successfully", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialogFragment.show(getSupportFragmentManager(), "UpdateStoreDialog");
+        }
+    }
+    private void updateUI() {
+        storeName.setText(store.getName());
+        storeAddress.setText(store.getAddress());
+        storePhone.setText(store.getPhone());
+        storeHours.setText(store.getOpenHours() + " - " + store.getCloseHours());
+        updateMapLocation(store.getLatitude(), store.getLongitude());
     }
 }
