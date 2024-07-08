@@ -13,7 +13,8 @@ public class APIClient {
 
     //private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
 
-    private static final String BASE_URL = "https://6124-113-173-136-159.ngrok-free.app/api/";
+    private static final String BASE_URL = "https://6b02-113-173-136-159.ngrok-free.app/api/";
+
     private static final String NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/";
 
     private static Retrofit retrofitNominatim;
