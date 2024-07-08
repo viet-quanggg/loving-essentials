@@ -47,6 +47,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     private Button btnCon, btnOrder;
     private Double totalPrice;
     private int id;
+    private int cartId;
     private Fragment checkoutFragment;
     @Nullable
     @Override
@@ -85,6 +86,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                 checkoutFragment = new CheckoutFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("userId", id);
+                bundle.putInt("cartId", cartId);
                 bundle.putDouble("total", totalPrice);
                 checkoutFragment.setArguments(bundle);
                 loadFragment(checkoutFragment);
@@ -119,6 +121,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                     List<CartItemDTO> productQuantities = new ArrayList<>();
                     Integer item = 0;
                     for (Cart cart : carts) {
+                        cartId = cart.getId();
                         totalPrice += cart.getPrice();
                         for (CartItemDTO items : cart.getProducts()) {
                             item += items.getQuantity();
