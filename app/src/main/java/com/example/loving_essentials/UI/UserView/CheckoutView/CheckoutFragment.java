@@ -1,5 +1,7 @@
 package com.example.loving_essentials.UI.UserView.CheckoutView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,9 +18,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loving_essentials.Domain.Entity.DTOs.Request.Order.CreateOrderRequest;
 import com.example.loving_essentials.Domain.Entity.DTOs.Response.Address.AddressResponseDto;
+import com.example.loving_essentials.Domain.Entity.DTOs.Response.Address.DTOs.PaymentResponse.DataResponse;
+import com.example.loving_essentials.Domain.Entity.DTOs.Response.Address.DTOs.PaymentResponse.GetPaymentResponse;
 import com.example.loving_essentials.Domain.Services.IService.IAddressService;
+import com.example.loving_essentials.Domain.Services.IService.IOrderService;
+import com.example.loving_essentials.Domain.Services.IService.IPaymentService;
 import com.example.loving_essentials.Domain.Services.Service.AddressService;
+import com.example.loving_essentials.Domain.Services.Service.OrderService;
+import com.example.loving_essentials.Domain.Services.Service.PaymentService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Fragments.MyOrderFragment;
 import com.example.loving_essentials.Utility.FooUtility.ShippingAdapter;
@@ -35,12 +44,17 @@ public class CheckoutFragment extends Fragment {
     private Double totalPrice;
     private int userId;
     private IAddressService iAddressService;
+    private IOrderService iOrderService;
+    private IPaymentService iPaymentService;
     private List<AddressResponseDto> addressResponseDtos;
+    private AddressResponseDto selectedAddressResponseDto;
     private TextView txtTotal;
     private ListView addressLv;
     private RadioButton isDelivery, isNotDelivery, isCash, isTransfer;
     private Fragment MyOrderDetail;
     private Button btnConfirm;
+    private int cartId;
+
     public CheckoutFragment() {
         // Required empty public constructor
     }
@@ -52,6 +66,7 @@ public class CheckoutFragment extends Fragment {
             Bundle bundle = getArguments();
             totalPrice = bundle.getDouble("total");
             userId  = bundle.getInt("userId");
+            cartId = bundle.getInt("cartId");
         }
     }
 
@@ -71,47 +86,19 @@ public class CheckoutFragment extends Fragment {
 
         btnConfirm = view.findViewById(R.id.buttonConfirm);
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyOrderDetail = new MyOrderFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("userId", userId);
-                MyOrderDetail.setArguments(bundle);
-                Toast.makeText(getActivity(), "Order placed !", Toast.LENGTH_SHORT).show();
-                loadFragment(MyOrderDetail);
-
-            }
-        });
-
-
+        iOrderService = OrderService.getOrderService();
+        iPaymentService = PaymentService.getPaymentService();
         isDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                totalPrice += 30000;
-                txtTotal.setText(totalPrice.toString());
+                if(isDelivery.isChecked()){
+                    totalPrice += 30000;
+                    txtTotal.setText(totalPrice.toString());
+                    Toast.makeText(getActivity(),"Delivery is selected with fee applied !", Toast.LENGTH_SHORT).show();
+                }else{
 
-            }
-        });
-
-        isCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Cash payment is selected !", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        isTransfer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Bank transfer payment is selected !", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        isNotDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Take at store is selected !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Delivery is already selected with fee applied !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -119,7 +106,64 @@ public class CheckoutFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "Address " + position + " is selected !", Toast.LENGTH_SHORT).show();
+                selectedAddressResponseDto = addressResponseDtos.get(position);
 
+                btnConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CreateOrderRequest createOrderRequest = new CreateOrderRequest();
+                        createOrderRequest.addressId = selectedAddressResponseDto.getId();
+                        createOrderRequest.cartId = cartId;
+                        createOrderRequest.payment = 1;
+                        createOrderRequest.method = 1;
+
+                        Call<Boolean> call = iOrderService.createOrder(cartId, createOrderRequest.getAddressId(), createOrderRequest.getMethod(), createOrderRequest.getPayment());
+                        call.enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                if (response.isSuccessful() && response.body() != null && response.body()) {
+                                    MyOrderDetail = new MyOrderFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("userId", userId);
+                                    Toast.makeText(getActivity(), "Order placed !", Toast.LENGTH_SHORT).show();
+                                    Call<GetPaymentResponse> paymentCall = iPaymentService.createOrder("Payment for user ID: " + userId, "Pay for order", totalPrice.intValue(), "", "");
+                                    paymentCall.enqueue(new Callback<GetPaymentResponse>() {
+                                        @Override
+                                        public void onResponse(Call<GetPaymentResponse> call, Response<GetPaymentResponse> response) {
+                                            if (response.isSuccessful() && response.body() != null) {
+                                                DataResponse data = response.body().getData();
+                                                Log.d("PaymentResponse", "URL: " + data.getCheckoutUrl());
+//                                                Toast.makeText(getActivity(), data.getCheckoutUrl(), Toast.LENGTH_SHORT).show();
+                                                bundle.putInt("orderCode", data.getOrderCode());
+                                                MyOrderDetail.setArguments(bundle);
+                                                gotoURL(data.getCheckoutUrl());
+                                                loadFragment(MyOrderDetail);
+
+                                            } else {
+                                                Log.e("PaymentResponse", "Failed to get URL: " + response.toString());
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(Call<GetPaymentResponse> call, Throwable t) {
+                                            Log.e("PaymentError", "Failed to create order", t);
+                                            Toast.makeText(getActivity(), "Failed to create payment order", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(getActivity(), "Failed to add address", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+                                Toast.makeText(getActivity(), "Add address successfully", Toast.LENGTH_SHORT).show();
+                                getActivity().getSupportFragmentManager().popBackStack();
+                            }
+                        });
+
+
+                    }
+                });
             }
         });
 
@@ -127,6 +171,11 @@ public class CheckoutFragment extends Fragment {
         iAddressService = AddressService.geAddressService();
         GetAddressData();
         return  view;
+    }
+
+    private void gotoURL(String url){
+        Uri uri = Uri.parse(url);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     private void GetAddressData() {
