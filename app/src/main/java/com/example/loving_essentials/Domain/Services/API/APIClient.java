@@ -13,11 +13,12 @@ public class APIClient {
 
     //private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
 
-    private static final String BASE_URL = "https://6b02-113-173-136-159.ngrok-free.app/api/";
-
+    private static final String BASE_URL = "https://1b65-113-173-136-159.ngrok-free.app/api/";
     private static final String NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/";
+    private static final String OSRM_BASE_URL = "http://router.project-osrm.org/";
 
     private static Retrofit retrofitNominatim;
+    private static Retrofit retrofitOSRM;
     private static Retrofit retrofit;
     private static OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS) // 30 seconds
@@ -40,5 +41,14 @@ public class APIClient {
                     .build();
         }
         return retrofitNominatim;
+    }
+    public static Retrofit getOSRMClient() {
+        if (retrofitOSRM == null) {
+            retrofitOSRM = new Retrofit.Builder()
+                    .baseUrl(OSRM_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofitOSRM;
     }
 }

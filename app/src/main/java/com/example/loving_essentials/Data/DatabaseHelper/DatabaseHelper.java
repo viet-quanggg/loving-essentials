@@ -82,6 +82,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Quantity INTEGER," +
                 "FOREIGN KEY(OrderId) REFERENCES OrderTable(Id)," +
                 "FOREIGN KEY(ProductId) REFERENCES Product(Id));");
+        // Create Store table
+        db.execSQL("CREATE TABLE IF NOT EXISTS Store (" +
+                "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Name TEXT," +
+                "Latitude REAL," +
+                "Longitude REAL," +
+                "Address TEXT," +
+                "Phone TEXT," +
+                "OpenHours TIME," +
+                "CloseHours TIME);");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

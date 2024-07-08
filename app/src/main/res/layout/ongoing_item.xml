@@ -152,6 +152,14 @@
                     android:textColor="@color/dark_purple"
                     android:textSize="14dp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="M"
+                    android:textSize="10dp"/>
             </LinearLayout>
 
         </LinearLayout>

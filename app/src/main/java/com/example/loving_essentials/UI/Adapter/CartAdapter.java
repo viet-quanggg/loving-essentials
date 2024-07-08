@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,16 +23,12 @@ import com.bumptech.glide.request.target.Target;
 import com.example.loving_essentials.Domain.Entity.Cart;
 import com.example.loving_essentials.Domain.Entity.DTOs.CartItemDTO;
 import com.example.loving_essentials.Domain.Entity.ProductDTO;
-import com.example.loving_essentials.Domain.Entity.ProductDetail;
 import com.example.loving_essentials.Domain.Services.IService.ICartService;
-import com.example.loving_essentials.Domain.Services.IService.IProductService;
 import com.example.loving_essentials.Domain.Services.Service.CartService;
-import com.example.loving_essentials.Domain.Services.Service.ProductService;
 import com.example.loving_essentials.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -102,6 +97,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.btnDecreaseQuantity.setOnClickListener(v -> {
             deleteQuantity(product.getId(),1,holder);
         });
+        holder.btnclearCart.setOnClickListener(v -> {
+            clearCart(product.getId(),holder);
+        });
     }
 
     @Override
@@ -112,7 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     static class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView imgproduct;
         TextView txtproductName, txtproductPrice, txtQuantity;
-        Button btnIncreaseQuantity, btnDecreaseQuantity;
+        TextView btnIncreaseQuantity, btnDecreaseQuantity, btnclearCart;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +120,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             txtQuantity = itemView.findViewById(R.id.txtQuantityitem);
             btnIncreaseQuantity = itemView.findViewById(R.id.btnIncreaseQuantityitem);
             btnDecreaseQuantity = itemView.findViewById(R.id.btnDecreaseQuantityitem);
+            btnclearCart = itemView.findViewById(R.id.btnClearCart);
         }
     }
     private void updateQuantity(int productId, int newQuantity, CartViewHolder holder) {
@@ -197,4 +196,43 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }
 }
+    private void clearCart(int productId, CartViewHolder holder) {
+        ICartService cartService = CartService.getICartService();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("id")) {
+            int id = sharedPreferences.getInt("id", -1);
+
+
+            Call<Cart> call = cartService.clearProductFromCart(id, productId);
+            call.enqueue(new Callback<Cart>() {
+                @Override
+                public void onResponse(Call<Cart> call, Response<Cart> response) {
+                    if (response.isSuccessful()) {
+                        // Update UI or handle success scenario
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                        if (sharedPreferences.contains("id")) {
+                            int id = sharedPreferences.getInt("id", -1);
+                            // use the id value
+                            onQuantityChangedListener.onQuantityChanged(id);
+                        } else {
+                            // the id key is not present in the SharedPreferences
+                        }
+
+
+                    } else {
+                        Log.e("CartAdapter", "Failed to update quantity: " + response.message());
+                        Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Cart> call, Throwable t) {
+                    Log.e("CartAdapter", "Failed to update quantity: " + t.getMessage());
+                    Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

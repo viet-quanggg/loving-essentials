@@ -72,6 +72,13 @@ public class ProductListFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_productlist, container, false);
 
+        int id = 0;
+
+        Bundle args = getArguments();
+        if (args!= null) {
+            id = args.getInt("categoryId");
+        }
+
         productService = ProductService.getProductService();
         categoryService = CategoryService.getCategoryService();
         brandService = BrandService.getBrandService();
@@ -197,6 +204,33 @@ public class ProductListFragment extends Fragment {
             }
         });
 
+        if (id != 0) {
+            InitialCategorySearch(id);
+        }
+
         return root;
+    }
+
+    private void InitialCategorySearch(int id) {
+        Toast.makeText(getContext(), "Filtering", Toast.LENGTH_SHORT).show();
+        Call<ProductDTO[]> callFilteredProduct = productService.getFilteredProducts("", id, 0);
+        callFilteredProduct.enqueue(new Callback<ProductDTO[]>() {
+            @Override
+            public void onResponse(Call<ProductDTO[]> call, Response<ProductDTO[]> response) {
+                ProductDTO[] productResult = response.body();
+                if (productResult == null) {
+                    return;
+                }
+
+                products.clear();
+                products.addAll(Arrays.asList(productResult));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ProductDTO[]> call, Throwable t) {
+                Toast.makeText(getContext(), "Error in filter", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

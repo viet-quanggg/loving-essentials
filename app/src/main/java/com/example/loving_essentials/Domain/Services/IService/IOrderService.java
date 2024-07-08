@@ -29,4 +29,9 @@ public interface IOrderService {
     Call<List<OrderResponse>> getOrdersByShipper(@Path("shipperId") int shipperId, @Query("status") int status, @Query("buyerName") String buyerName, @Query("productName") String productName);
     @PUT("Order/status")
     Call<Void> updateOrderStatus(@Body OrderStatusUpdateRequest orderStatusUpdate);
+
+    // API này Chuyển status sang Processing Khi admin bấm Approved bên OrderDetail nhé
+    // Truyền OrderId vào
+    @PUT("Order/status/processing/{id}")
+    Call<Void> updateOrderProcessingStatus(@Path("id") int id);
 }

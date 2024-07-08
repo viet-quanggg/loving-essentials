@@ -21,8 +21,17 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".UI.ShipperMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.AssignShipperActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".UI.MyDeliveryActivity"
             android:exported="false" />
+        <activity
+            android:name=".UI.StoreActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".UI.DeliveryActivity"
             android:exported="false" />
@@ -99,6 +108,9 @@
         <meta-data
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://432497326611892:dkTA4AvWQtblmhcUECE0eo9V090@dpmjibfhc" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCOeEwyjU99vlNwpK10cWgSq_MblTkPGy4" />
     </application>
 
 </manifest>

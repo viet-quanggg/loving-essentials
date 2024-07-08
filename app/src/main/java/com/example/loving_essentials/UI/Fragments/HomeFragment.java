@@ -81,9 +81,9 @@ public class HomeFragment extends Fragment {
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);
         List<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel(R.drawable.banner1, "Discount on some items", ScaleTypes.CENTER_CROP));
-        slideModels.add(new SlideModel(R.drawable.banner2, "Discount on some other items", ScaleTypes.CENTER_CROP));
-        slideModels.add(new SlideModel(R.drawable.banner3, "70% OFF", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner11, "We provide the best milks", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner22, "Best choice for your children", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner33, "100% Quality Assurance", ScaleTypes.CENTER_CROP));
 
         imageSlider.setImageList(slideModels);
 
@@ -136,8 +136,26 @@ public class HomeFragment extends Fragment {
         });
         productAdapter.notifyDataSetChanged();
         Button btnSeeAll = (Button) root.findViewById(R.id.newProducts_see_all);
+        Button btnCategorySeeAll = (Button) root.findViewById(R.id.category_see_all);
 
         btnSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ProductListActivity.class);
+//                startActivity(intent);
+                Fragment newFragment = new ProductListFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack if needed
+                transaction.replace(R.id.home_container, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+        });
+        btnCategorySeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(getActivity(), ProductListActivity.class);

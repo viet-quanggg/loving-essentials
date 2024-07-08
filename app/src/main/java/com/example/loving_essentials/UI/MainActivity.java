@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import com.example.loving_essentials.UI.Fragments.CartFragment;
 import com.example.loving_essentials.UI.Fragments.HomeFragment;
 import com.example.loving_essentials.UI.Fragments.LoginActivity;
 import com.example.loving_essentials.UI.Fragments.MyOrderFragment;
+import com.example.loving_essentials.UI.Fragments.ProductListFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
 import com.example.loving_essentials.UI.UserView.AddressView.ShippingInformation;
 import com.google.android.material.navigation.NavigationView;
@@ -119,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
             startActivity(intent);
         } /*else if (id == R.id.nav_login) {
+            ProductListFragment productListFragment = new ProductListFragment();
+            loadFragment(productListFragment);
+        } else if (id == R.id.nav_login) {
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(false);

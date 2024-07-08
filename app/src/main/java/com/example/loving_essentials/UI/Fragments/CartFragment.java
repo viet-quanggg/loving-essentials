@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.example.loving_essentials.Domain.Services.Service.CartService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Adapter.CartAdapter;
 import com.example.loving_essentials.UI.ProductListActivity;
+import com.example.loving_essentials.UI.UserView.CheckoutView.CheckoutFragment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -41,9 +43,11 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
     private List<Cart> carts;
     private RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
-    private TextView txtPrice;
+    private TextView txtPrice, txtItem;
     private Button btnCon, btnOrder;
-
+    private Double totalPrice;
+    private int id;
+    private Fragment checkoutFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,9 +64,10 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
         txtPrice = view.findViewById(R.id.totalPrice);
         btnCon = view.findViewById(R.id.btnContinueShopping);
         btnOrder = view.findViewById(R.id.btnCheckout);
+        txtItem = view.findViewById(R.id.IteminCart);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         if (sharedPreferences.contains("id")) {
-            int id = sharedPreferences.getInt("id", -1);
+            id = sharedPreferences.getInt("id", -1);
             loadCartData(id);
         } else {
             // the id key is not present in the SharedPreferences
@@ -74,7 +79,28 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
             startActivity(intent);
         });
 
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkoutFragment = new CheckoutFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", id);
+                bundle.putDouble("total", totalPrice);
+                checkoutFragment.setArguments(bundle);
+                loadFragment(checkoutFragment);
+            }
+        });
+
         return view;
+    }
+
+    private void loadFragment(Fragment fragment) {
+        if (getActivity() != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.home_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
     private void loadCartData(int id) {
         ICartService cartService = CartService.getICartService();
@@ -88,11 +114,15 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                     carts = new ArrayList<>();
                     carts.clear();
                     carts.addAll(Arrays.asList(cartsResult));
-                    Double totalPrice = (double) 0;
+                     totalPrice = (double) 0;
                     List<Integer> quantity = new ArrayList<>();
                     List<CartItemDTO> productQuantities = new ArrayList<>();
+                    Integer item = 0;
                     for (Cart cart : carts) {
                         totalPrice += cart.getPrice();
+                        for (CartItemDTO items : cart.getProducts()) {
+                            item += items.getQuantity();
+                        }
                         productQuantities.addAll(cart.getProducts()); // Add all CartItemDTOs to the list
                     }
                     DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -107,6 +137,12 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
                         txtPrice.setText("Total: $" + totalPrice);
                     }*/
                     txtPrice.setText("Total: $" + decimalFormat.format(totalPrice));
+                    if (item>1){
+                        txtItem.setText("Value of : "+item+" items");
+                    }else {
+                        txtItem.setText("Value of : "+item+" item");
+                    }
+
                     cartAdapter = new CartAdapter(productQuantities,getContext(),CartFragment.this);
                     recyclerViewCart.setAdapter(cartAdapter);
                 } else {
