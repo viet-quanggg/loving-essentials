@@ -9,14 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
     //Thằng nào muốn xài cái này tự deploy lên ngrok r xài nhé. Cái url này của t thôi
 
-//    private static String baseUrl = "https://8079-113-23-109-21.ngrok-free.app/api/";
+    //private static String baseUrl = "https://8079-113-23-109-21.ngrok-free.app/api/";
 
-//    private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
+    //private static final String BASE_URL = "https://3831-27-74-201-205.ngrok-free.app/";
+
 
     private static final String BASE_URL = " https://6a35-14-186-69-93.ngrok-free.app/api/";
     private static final String NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/";
+    private static final String OSRM_BASE_URL = "http://router.project-osrm.org/";
 
     private static Retrofit retrofitNominatim;
+    private static Retrofit retrofitOSRM;
     private static Retrofit retrofit;
     private static OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS) // 30 seconds
@@ -39,5 +42,14 @@ public class APIClient {
                     .build();
         }
         return retrofitNominatim;
+    }
+    public static Retrofit getOSRMClient() {
+        if (retrofitOSRM == null) {
+            retrofitOSRM = new Retrofit.Builder()
+                    .baseUrl(OSRM_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofitOSRM;
     }
 }

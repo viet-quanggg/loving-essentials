@@ -14,15 +14,15 @@ import retrofit2.http.Path;
 
 public interface IAddressService {
 
-    @GET("/api/Address/GetAddressByUser/{id}")
+    @GET("Address/GetAddressByUser/{id}")
     Call<AddressResponseDto[]> GetAddressByUserId(@Path("id") int userId);
 
-    @POST("/api/Address/Add-address")
+    @POST("Address/Add-address")
     Call<Boolean> AddAddress(@Body AddressRequestDTO addressRequest);
 
-    @DELETE("/api/Address/DeleteAddress/{id}")
+    @DELETE("Address/DeleteAddress/{id}")
     Call<Boolean> DeleteAddress(@Path("id") int addId);
 
-    @PUT("/api/Address/UpdateAddress")
+    @PUT("Address/UpdateAddress")
     Call<Boolean> UpdateAddress(@Body UpdateAddressDto updateAddressDto);
 }

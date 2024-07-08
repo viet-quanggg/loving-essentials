@@ -7,6 +7,7 @@ public class OrderResponse {
     String created;
     String updated;
     double totalPrice;
+    String address;
     int buyerId;
     int shipperId;
     int status;
@@ -85,5 +86,11 @@ public class OrderResponse {
         this.orderDetails = orderDetails;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

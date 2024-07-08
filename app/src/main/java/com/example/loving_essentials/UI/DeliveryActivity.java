@@ -125,6 +125,4 @@ public class DeliveryActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

@@ -29,6 +29,7 @@ public interface IStoreService {
 
     @DELETE(ENDPOINT + "/{id}")
     Call<Void> DeleteStore(@Path("id") int id);
+
     @GET(ENDPOINT + "/{id}")
     Call<Store> getStoreById(@Path("id") int id);
 

@@ -163,7 +163,7 @@ public class MyDeliveryActivity extends AppCompatActivity {
                     orderList.clear();
                     orderAdapter.notifyDataSetChanged();
                     txtNoData.setVisibility(View.VISIBLE);
-                    txtActiveDeliveries.setText("0 Active Deliveries");
+                    /*txtActiveDeliveries.setText("0 Active Deliveries");*/
                 }
             }
 
