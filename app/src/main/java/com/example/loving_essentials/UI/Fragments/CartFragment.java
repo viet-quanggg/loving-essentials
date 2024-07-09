@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,13 +84,18 @@ public class CartFragment extends Fragment implements CartAdapter.OnQuantityChan
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkoutFragment = new CheckoutFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("userId", id);
-                bundle.putInt("cartId", cartId);
-                bundle.putDouble("total", totalPrice);
-                checkoutFragment.setArguments(bundle);
-                loadFragment(checkoutFragment);
+                if(carts.isEmpty()){
+                    Toast.makeText(getActivity(), "Your cart is empty! Add some products to continute !", Toast.LENGTH_SHORT).show();
+                }else{
+                    checkoutFragment = new CheckoutFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("userId", id);
+                    bundle.putInt("cartId", cartId);
+                    bundle.putDouble("total", totalPrice);
+                    checkoutFragment.setArguments(bundle);
+                    loadFragment(checkoutFragment);
+                }
+
             }
         });
 
