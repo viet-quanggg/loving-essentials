@@ -7,6 +7,10 @@
                     android:title="Home"
                     android:icon="@drawable/home" />
                 <item
+                    android:id="@+id/nav_assign_shipper"
+                    android:title="Assign Shipper"
+                    android:icon="@drawable/user" />
+                <item
                     android:id="@+id/nav_products"
                     android:title="Product Management"
                     android:icon="@drawable/product" />
