@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             loadFragment(homeFragment);
         } else if (id == R.id.nav_products) {
-            Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
-            startActivity(intent);
+            ProductListFragment productListFragment = new ProductListFragment();
+            loadFragment(productListFragment);
         } /*else if (id == R.id.nav_login) {
             ProductListFragment productListFragment = new ProductListFragment();
             loadFragment(productListFragment);
