@@ -37,25 +37,18 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/textViewQuantity"
+                android:id="@+id/textViewQuantityOrderDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Quantity: 2"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Price: $10000"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewTotal"
+            android:id="@+id/textViewPriceOrderDetail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"

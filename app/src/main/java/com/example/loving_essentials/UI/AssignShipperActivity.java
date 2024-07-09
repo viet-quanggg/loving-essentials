@@ -80,7 +80,7 @@ public class AssignShipperActivity extends AppCompatActivity {
         btnAssign.setOnClickListener(v -> {
             if (selectedUserId != -1) {
                 // Chỗ Intent này nhớ truyền OrderId từ bên màn OrderDetail qua nhen
-                int orderId = getIntent().getIntExtra("OrderId", -1);
+                int orderId = getIntent().getIntExtra("orderId", -1);
                 if (orderId != -1) {
                     updateOrderStatus(selectedUserId, orderId, 2);
                 } else {
