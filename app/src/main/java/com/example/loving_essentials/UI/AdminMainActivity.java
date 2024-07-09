@@ -25,6 +25,7 @@ import com.example.loving_essentials.Domain.Entity.DTOs.UserDTO.UserProfileDTO;
 import com.example.loving_essentials.Domain.Services.IService.IUserService;
 import com.example.loving_essentials.Domain.Services.Service.UserService;
 import com.example.loving_essentials.R;
+import com.example.loving_essentials.UI.Fragments.LoginActivity;
 import com.example.loving_essentials.UI.Fragments.ProductManagementFragment;
 import com.example.loving_essentials.UI.Fragments.UserManagementFragment;
 import com.example.loving_essentials.UI.Fragments.UserProfileFragment;
@@ -101,17 +102,22 @@ public class AdminMainActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_products) {
             productManagementFragment = new ProductManagementFragment();
             loadFragment(productManagementFragment);
+        }else if (id == R.id.nav_assign_shipper) {
+            Intent assignShipper = new Intent(AdminMainActivity.this, AssignShipperActivity.class);
+            startActivity(assignShipper);
         } else if(id == R.id.nav_users){
             userManagementFragment = new UserManagementFragment();
             loadFragment(userManagementFragment);
-        } else if (id == R.id.nav_login) {
+        } /*else if (id == R.id.nav_login) {
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(false);
-        } else if (id == R.id.nav_logout) {
-            menu.findItem(R.id.nav_logout).setVisible(false);
+        }*/ else if (id == R.id.nav_logout) {
+            /*menu.findItem(R.id.nav_logout).setVisible(false);
             menu.findItem(R.id.nav_profile).setVisible(false);
-            menu.findItem(R.id.nav_login).setVisible(true);
+            menu.findItem(R.id.nav_login).setVisible(true);*/
+            Intent login = new Intent(AdminMainActivity.this, LoginActivity.class);
+            startActivity(login);
         } else if (id == R.id.nav_profile) {
             Intent intent = getIntent();
             int userId = intent.getIntExtra("id", 0);
