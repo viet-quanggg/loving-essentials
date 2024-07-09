@@ -18,15 +18,17 @@ public class OrderDTO {
     public int buyerId;
     @SerializedName("shipperName")
     public String ShipperName;
+    @SerializedName("status")
+    public int Status;
     public List<OrderDetail> OrderDetails;
 
-    public OrderDTO(int id, Date created, Date updated, double totalPrice, int buyerId, String shipperName) {
+    public OrderDTO(int id, Date created, double totalPrice, int buyerId, String shipperName, int status) {
         this.id = id;
         Created = created;
-        Updated = updated;
         this.totalPrice = totalPrice;
         this.buyerId = buyerId;
         ShipperName = shipperName;
+        status = Status;
     }
 
     public int getId() {
@@ -83,5 +85,13 @@ public class OrderDTO {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         OrderDetails = orderDetails;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
     }
 }

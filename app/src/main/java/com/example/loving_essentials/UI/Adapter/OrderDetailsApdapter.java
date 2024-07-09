@@ -69,10 +69,17 @@ public class OrderDetailsApdapter extends RecyclerView.Adapter<OrderDetailsApdap
         }
 
         String name = orderDetail.getProductName();
-        if (name.length() > 10) {
-            name = name.substring(0, 10) + "...";
+        if (name.length() > 15) {
+            name = name.substring(0, 15) + "...";
         }
-        holder.quantity.setText(String.valueOf(orderDetail.getQuantity()));
+        // Kiểm tra và hiển thị số lượng nếu khác 0
+        double quantity = list.get(position).getQuantity(); // Assuming getQuantity() returns a double
+        int quantityInt = (int) quantity;
+        if (quantityInt != 0) {
+            holder.quantity.setText("Quantity: " + quantityInt);
+        } else {
+            holder.quantity.setText("");  // or you can set it to View.GONE if you don't want it to take up space
+        }
         holder.productName.setText(name);
         holder.price.setText(String.valueOf(orderDetail.getPrice()));
     }
@@ -89,9 +96,9 @@ public class OrderDetailsApdapter extends RecyclerView.Adapter<OrderDetailsApdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageViewProductOrderDetail);
-            price = itemView.findViewById(R.id.textViewPrice);
+            price = itemView.findViewById(R.id.textViewPriceOrderDetail);
             productName = itemView.findViewById(R.id.textViewProductName);
-            quantity = itemView.findViewById(R.id.textViewQuantity);
+            quantity = itemView.findViewById(R.id.textViewQuantityOrderDetail);
         }
     }
 }
