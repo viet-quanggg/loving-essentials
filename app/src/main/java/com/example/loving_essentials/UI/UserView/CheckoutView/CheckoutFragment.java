@@ -177,8 +177,8 @@ public class CheckoutFragment extends Fragment {
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("userId", userId);
                                     Toast.makeText(getActivity(), "Order placed !", Toast.LENGTH_SHORT).show();
-                                    checkAndRequestNotificationPermission();
                                     if(payment == 0){
+                                        checkAndRequestNotificationPermission();
                                         loadFragment(MyOrderDetail);
                                     }else if(payment == 1){
                                         Call<GetPaymentResponse> paymentCall = iPaymentService.createOrder("Payment for user ID: " + userId, "Pay for order", totalPrice.intValue(), "", "");
@@ -192,6 +192,7 @@ public class CheckoutFragment extends Fragment {
                                                     MyOrderDetail.setArguments(bundle);
                                                     gotoURL(data.getCheckoutUrl());
                                                     loadFragment(MyOrderDetail);
+                                                    checkAndRequestNotificationPermission();
                                                 } else {
                                                     Log.e("PaymentResponse", "Failed to get URL: " + response.toString());
                                                 }
