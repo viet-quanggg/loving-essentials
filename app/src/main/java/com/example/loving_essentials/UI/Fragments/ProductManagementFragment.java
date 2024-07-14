@@ -3,9 +3,15 @@ package com.example.loving_essentials.UI.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -13,6 +19,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -55,6 +62,7 @@ import com.example.loving_essentials.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +90,11 @@ public class ProductManagementFragment extends Fragment {
     ImageView imgCreatePreview;
     ImageView imgUpdatePreview;
     private static final String TAG = "Upload ###";
+
+    private static final String CHANNEL_ID = "example_channel";
+    private static final String CHANNEL_NAME = "Example Channel";
+    private static final String CHANNEL_DESCRIPTION = "This is an example notification channel";
+    private static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
 
     private static int IMAGE_REQ=1;
 
@@ -555,6 +568,7 @@ public class ProductManagementFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Product added successfully", Toast.LENGTH_SHORT).show();
+                    checkAndRequestNotificationPermission("Product Management", "You are created product successfully!");
                     fetchProducts();
                 }
             }
@@ -572,6 +586,7 @@ public class ProductManagementFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Product updated successfully", Toast.LENGTH_SHORT).show();
+                    checkAndRequestNotificationPermission("Product Management", "You are updated product successfully!");
                     fetchProducts();
                 }
             }
@@ -640,5 +655,78 @@ public class ProductManagementFragment extends Fragment {
         config.put("api_key","432497326611892");
         config.put("api_secret","dkTA4AvWQtblmhcUECE0eo9V090");
         MediaManager.init(getContext(), config);
+    }
+
+    private void checkAndRequestNotificationPermission(String title, String contentText) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE_POST_NOTIFICATIONS);
+            } else {
+                createNotificationChannel();
+                sendNotify(title, contentText);
+            }
+        } else {
+            createNotificationChannel();
+            sendNotify(title, contentText);
+        }
+    }
+
+    private void sendNotify(String title, String contentText) {
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                    .setContentTitle(title)
+                    .setContentText(contentText)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setLargeIcon(bitmap)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+            NotificationManager notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                int num = getNotificationId();
+                notificationManager.notify(num, builder.build());
+                Log.d("CheckoutFragment", "Notification sent with ID: " + num);
+            }
+        } catch (Exception ex) {
+            Log.e("CheckoutFragment", "Error sending notification: ", ex);
+            ex.printStackTrace();
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription(CHANNEL_DESCRIPTION);
+
+            NotificationManager notificationManager = requireActivity().getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+                Log.d("CheckoutFragment", "Notification channel created: " + CHANNEL_NAME);
+            } else {
+                Toast.makeText(getContext(), "Error creating notification channel!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private int getNotificationId() {
+        return (int) new Date().getTime();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "Notification Permission Granted", Toast.LENGTH_SHORT).show();
+                createNotificationChannel();
+                sendNotify("Notification", "Order created successfully!");  // Default message
+            } else {
+                Toast.makeText(getContext(), "Notification Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
