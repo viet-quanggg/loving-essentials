@@ -109,6 +109,7 @@ public class CheckoutFragment extends Fragment {
                 }else if (isCheck == 1){
                     double v1 = totalPrice - 30000;
                     totalPrice = v1;
+                    txtTotal.setText(totalPrice.toString());
                     isCheck = 0;
                 }
             }
