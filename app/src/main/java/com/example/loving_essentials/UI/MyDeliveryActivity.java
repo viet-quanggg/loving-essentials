@@ -29,6 +29,7 @@ import com.example.loving_essentials.Domain.Services.IService.IOrderService;
 import com.example.loving_essentials.Domain.Services.Service.OrderService;
 import com.example.loving_essentials.R;
 import com.example.loving_essentials.UI.Adapter.DeliveryAdapter;
+import com.example.loving_essentials.UI.Fragments.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,20 @@ public class MyDeliveryActivity extends AppCompatActivity {
 
         LinearLayout linearMyDeliveries = findViewById(R.id.linearMyDeliveries);
         LinearLayout linearHome = findViewById(R.id.linearHome);
+        LinearLayout linearLogout = findViewById(R.id.linearLogout);
 
 
         linearHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DeliveryActivity.class);
+                startActivity(intent);
+            }
+        });
+        linearLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

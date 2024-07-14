@@ -144,13 +144,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearLogout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/imageView7"
@@ -164,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Home"
+                        android:text="Logout"
                         android:textAlignment="center"
                         android:textColor="@color/dark_purple"
                         android:textSize="12dp" />
