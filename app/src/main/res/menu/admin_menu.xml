@@ -18,6 +18,10 @@
                     android:id="@+id/nav_users"
                     android:title="User Management"
                     android:icon="@drawable/user" />
+                <item
+                    android:id="@+id/nav_store"
+                    android:title="Store Management"
+                    android:icon="@drawable/store" />
             </group>
         </menu>
     </item>

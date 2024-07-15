@@ -147,54 +147,54 @@
         app:layout_constraintStart_toEndOf="@id/textViewClose"
         app:layout_constraintTop_toBottomOf="@+id/editSOpen" />
 
-    <TextView
-        android:id="@+id/textViewLT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="35dp"
-        android:text="Latitude:"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@id/editSLT"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewClose" />
+<!--    <TextView-->
+<!--        android:id="@+id/textViewLT"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="35dp"-->
+<!--        android:text="Latitude:"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/editSLT"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewClose" />-->
 
-    <EditText
-        android:id="@+id/editSLT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="13dp"
-        android:hint="ltLocation"
-        android:textSize="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/textViewLT"
-        app:layout_constraintTop_toBottomOf="@+id/editSClose" />
+<!--    <EditText-->
+<!--        android:id="@+id/editSLT"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="5dp"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:hint="ltLocation"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toEndOf="@id/textViewLT"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/editSClose" />-->
 
-    <TextView
-        android:id="@+id/textViewLG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="22dp"
-        android:text="Longitude:"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@id/editSLG"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLT" />
+<!--    <TextView-->
+<!--        android:id="@+id/textViewLG"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="22dp"-->
+<!--        android:text="Longitude:"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/editSLG"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewLT" />-->
 
-    <EditText
-        android:id="@+id/editSLG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="2dp"
-        android:hint="lgLocation"
-        android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@id/textViewLG"
-        app:layout_constraintTop_toBottomOf="@+id/editSLT" />
+<!--    <EditText-->
+<!--        android:id="@+id/editSLG"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="5dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:hint="lgLocation"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintStart_toEndOf="@id/textViewLG"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/editSLT" />-->
 
     <Button
         android:id="@+id/btnUpdateStore"
@@ -207,6 +207,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLG" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewClose" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

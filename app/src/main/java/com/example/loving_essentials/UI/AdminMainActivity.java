@@ -108,6 +108,9 @@ public class AdminMainActivity extends AppCompatActivity implements NavigationVi
         } else if(id == R.id.nav_users){
             userManagementFragment = new UserManagementFragment();
             loadFragment(userManagementFragment);
+        } else if (id == R.id.nav_store) {
+            Intent storeManagement = new Intent(AdminMainActivity.this, StoreActivity.class);
+            startActivity(storeManagement);
         } /*else if (id == R.id.nav_login) {
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);

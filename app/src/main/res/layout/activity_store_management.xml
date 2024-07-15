@@ -49,15 +49,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <Button
-        android:id="@+id/update_store_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="24dp"
-        android:text="Update Store"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_hours" />
+        app:layout_constraintTop_toBottomOf="@+id/store_hours"
+        tools:layout_editor_absoluteX="16dp">
+
+        <Button
+            android:id="@+id/close_store_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="Close" />
+
+        <Button
+            android:id="@+id/update_store_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="Update" />
+    </LinearLayout>
 
     <fragment
         android:id="@+id/id_map"

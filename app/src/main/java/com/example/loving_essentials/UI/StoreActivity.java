@@ -35,7 +35,7 @@ public class StoreActivity extends AppCompatActivity implements OnMapReadyCallba
     private TextView storeAddress;
     private TextView storePhone;
     private TextView storeHours;
-    private Button updateStoreButton;
+    private Button updateStoreButton, closeStoreButton;
     private IStoreService storeService;
     private static final String TAG = "StoreActivity";
     private GoogleMap gMap;
@@ -52,6 +52,7 @@ public class StoreActivity extends AppCompatActivity implements OnMapReadyCallba
         storePhone = findViewById(R.id.store_phone);
         storeHours = findViewById(R.id.store_hours);
         updateStoreButton = findViewById(R.id.update_store_button);
+        closeStoreButton = findViewById(R.id.close_store_button);
 
         // Initialize store service
         storeService = StoreService.getStoreService();
@@ -68,11 +69,18 @@ public class StoreActivity extends AppCompatActivity implements OnMapReadyCallba
             mapFragment.getMapAsync(this);
         }
 
-        // Update store button click listener
+        // store button click listener
         updateStoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUpdateStoreDialog();
+            }
+        });
+
+        closeStoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

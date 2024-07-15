@@ -1,5 +1,7 @@
 package com.example.loving_essentials.UI.Fragments;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,16 +22,21 @@ import com.example.loving_essentials.Domain.Services.API.APIClient;
 import com.example.loving_essentials.Domain.Services.IService.IStoreService;
 import com.example.loving_essentials.R;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdateStoreFragment extends DialogFragment {
     private EditText editSName, editSAddress, editSPhone, editSOpen, editSClose;
-    private EditText editLatitude, editLongitude;
+//    private EditText editLatitude, editLongitude;
     private Button btnUpdateStore;
     private Store store;
     private OnStoreUpdatedListener listener;
+    private Geocoder geocoder;
 
     public UpdateStoreFragment(Store store) {
         this.store = store;
@@ -40,13 +47,15 @@ public class UpdateStoreFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.update_store_admin, container, false);
 
+        geocoder = new Geocoder(getContext(), Locale.getDefault());
+
         editSName = view.findViewById(R.id.editSName);
         editSAddress = view.findViewById(R.id.editSAddress);
         editSPhone = view.findViewById(R.id.editSPhone);
         editSOpen = view.findViewById(R.id.editSOpen);
         editSClose = view.findViewById(R.id.editSClose);
-        editLatitude = view.findViewById(R.id.editSLT);
-        editLongitude = view.findViewById(R.id.editSLG);
+//        editLatitude = view.findViewById(R.id.editSLT);
+//        editLongitude = view.findViewById(R.id.editSLG);
         btnUpdateStore = view.findViewById(R.id.btnUpdateStore);
 
         // Hiển thị thông tin cửa hàng hiện tại nếu có
@@ -56,8 +65,8 @@ public class UpdateStoreFragment extends DialogFragment {
             editSPhone.setText(store.getPhone());
             editSOpen.setText(store.getOpenHours());
             editSClose.setText(store.getCloseHours());
-            editLatitude.setText(String.valueOf(store.getLatitude()));
-            editLongitude.setText(String.valueOf(store.getLongitude()));
+//            editLatitude.setText(String.valueOf(store.getLatitude()));
+//            editLongitude.setText(String.valueOf(store.getLongitude()));
         }
 
         btnUpdateStore.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +86,26 @@ public class UpdateStoreFragment extends DialogFragment {
         String phone = editSPhone.getText().toString();
         String openHours = editSOpen.getText().toString();
         String closeHours = editSClose.getText().toString();
-        double latitude = TextUtils.isEmpty(editLatitude.getText().toString()) ? 0.0 : Double.parseDouble(editLatitude.getText().toString());
-        double longitude = TextUtils.isEmpty(editLongitude.getText().toString()) ? 0.0 : Double.parseDouble(editLongitude.getText().toString());
+//        double latitude = TextUtils.isEmpty(editLatitude.getText().toString()) ? 0.0 : Double.parseDouble(editLatitude.getText().toString());
+//        double longitude = TextUtils.isEmpty(editLongitude.getText().toString()) ? 0.0 : Double.parseDouble(editLongitude.getText().toString());
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(address, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address location = addresses.get(0);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            } else {
+                Toast.makeText(getContext(), "Unable to find location for the provided address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Geocoder failed", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Cập nhật thông tin cửa hàng
         store.setName(name);
