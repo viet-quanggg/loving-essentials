@@ -1,6 +1,7 @@
 package com.example.loving_essentials.UI;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -166,6 +167,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             myOrderFragment = new MyOrderFragment();
             myOrderFragment.setArguments(args);
             loadFragment(myOrderFragment);
+        }
+        else if (id == R.id.nav_phone) {
+            Uri number = Uri.parse("tel:0898980731");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+            startActivity(callIntent);
+        }
+        else if (id == R.id.nav_message) {
+            String phoneNumber = "0898980731";
+            String message = "Hello, I want to buy milk, can you advise me?";
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("smsto:" + phoneNumber));
+            intent.putExtra("sms_body", message);
+
+            // Check if there is an app that can handle this intent
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
