@@ -76,7 +76,7 @@ public class OrderShippingAdapter extends RecyclerView.Adapter<OrderShippingAdap
         }
 
         String dateStr = order.getCreated(); // Get the date string from your OrderResponse object
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()); // Replace with the actual date format of your date string
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()); // Corrected date format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()); // Replace with your desired date format
         try {
             Date date = parser.parse(dateStr);
@@ -85,6 +85,7 @@ public class OrderShippingAdapter extends RecyclerView.Adapter<OrderShippingAdap
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
 
         if (holder.button != null) {
             holder.button.setOnClickListener(new View.OnClickListener() {

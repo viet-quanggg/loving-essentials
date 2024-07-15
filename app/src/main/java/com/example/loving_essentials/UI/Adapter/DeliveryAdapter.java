@@ -73,9 +73,8 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.OrderV
         } else {
             // Handle the case where order.getOrderDetails() is empty
         }
-
         String dateStr = order.getCreated(); // Get the date string from your OrderResponse object
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()); // Replace with the actual date format of your date string
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()); // Corrected date format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()); // Replace with your desired date format
         try {
             Date date = parser.parse(dateStr);
@@ -84,6 +83,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.OrderV
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
 
 
         if (holder.button != null) {
