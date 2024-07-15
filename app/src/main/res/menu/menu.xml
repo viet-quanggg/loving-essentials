@@ -39,4 +39,22 @@
             </group>
         </menu>
     </item>
+    <item android:title="Contact">
+        <menu>
+            <group android:checkableBehavior="single">
+                <!--<item
+                    android:id="@+id/nav_login"
+                    android:title="Login"
+                    android:icon="@drawable/login" />-->
+                <item
+                    android:id="@+id/nav_phone"
+                    android:title="Phone"
+                    android:icon="@drawable/user" />
+                <item
+                    android:id="@+id/nav_message"
+                    android:title="Message"
+                    android:icon="@drawable/logout" />
+            </group>
+        </menu>
+    </item>
 </menu>
